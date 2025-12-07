@@ -43,7 +43,16 @@ if (!file.exists()) { boolean isCreated = file.createNewFile(); System.out.print
 File dir1 = new File("testDir"); dir1.mkdir(); 
 // 创建多级目录（父目录不存在也能创建） 
 File dir2 = new File("testDir/subDir1/subDir2"); dir2.mkdirs();
+// 创建前缀为"test"、后缀为".tmp"的临时文件
+File tempFile = File.createTempFile("test", ".tmp");
+tempFile.deleteOnExit(); // JVM退出时删除
+System.out.println("临时文件路径：" + tempFile.getAbsolutePath());
 ```
+这里需要说明一下`createTempFile(prefix, suffix)`
+
+`prefix`表示临时文件的前缀（必须至少 3 个字符），比如 "temp_"；`suffix`：文件名后缀（可传 `null`，默认生成 `.tmp` 后缀），例如 `.txt`。其文件名由指定的前缀（prefix）、后缀（suffix）和自动生成的随机字符组成，以保证多线程 / 多进程下文件名不重复。最终文件名格式：`[prefix][随机字符][suffix]`
+
+在java7+后
 ### 删除操作
 |方法|说明|
 |---|---|
