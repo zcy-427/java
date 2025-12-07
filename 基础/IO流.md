@@ -359,3 +359,54 @@ public class FILES_RW {
 ```
 
 文件/目录操作(复制 移动 删除)
+
+```Java
+import java.io.IOException;  
+import java.nio.file.Files;  
+import java.nio.file.Path;  
+import java.nio.file.Paths;  
+import java.nio.file.StandardCopyOption;  
+  
+public class FileOpreator {  
+    public static void main(String[] args) throws IOException {  
+        Path srcPath= Paths.get("C:\\Users\\zcy\\Desktop\\test.txt");  
+        Path destDir=Path.of("C:\\Users\\zcy\\Desktop\\test");  
+        if (Files.notExists(destDir)) {  
+            Files.createDirectories(destDir);  
+        }  
+        Path destPath=destDir.resolve(srcPath.getFileName());//追加文件名，解析出最终的文件Path  
+        Files.copy(srcPath, destPath, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);  
+        System.out.println("文件复制完成");  
+    }  
+}
+```
+
+目录遍历
+
+```java
+import java.nio.file.Files;  
+import java.nio.file.Paths;  
+public class directory_traversal {  
+    public static void main(String[] args) throws Exception {  
+        // 1. 浅层遍历（仅当前目录，深度1）  
+        System.out.println("=== 浅层遍历src目录 ===");  
+        Files.list(Paths.get("src"))  
+                .filter(Files::isRegularFile) // 仅文件  
+                .filter(p -> p.toString().endsWith(".java")) // 仅Java文件  
+                .forEach(p -> System.out.println(p));  
+  
+        // 2. 递归遍历（深度5，过滤可读文件）  
+        System.out.println("\n=== 递归遍历src目录 ===");  
+        Files.walk(Paths.get("src"), 5)  
+                .filter(Files::isReadable)  
+                .forEach(p -> {  
+                    try {  
+                        System.out.println(p + " → 大小：" + Files.size(p) + "字节");  
+                    } catch (Exception e) {  
+                        e.printStackTrace();  
+                    }  
+                });  
+    }  
+}
+```
+
