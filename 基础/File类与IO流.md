@@ -69,6 +69,12 @@ if (file.exists()) {
 File tempDir = new File("temp");
 tempDir.deleteOnExit();
 ```
+这里需要注意,Delete只能够删除空目录，删除非空目录需递归删除内部所有文件 / 子目录；
+
+示例:
+```
+
+```
 ### 3.判断操作
 | 方法                       | 说明            |
 | ------------------------ | ------------- |
@@ -79,7 +85,21 @@ tempDir.deleteOnExit();
 | `canRead()`/`canWrite()` | 判断文件是否可读 / 可写 |
 示例:
 ```java
-
+File file = new File("test.txt");   
+//创建空文件  
+if (!file.exists()) {  
+	boolean isCreated = file.createNewFile();  
+	System.out.println("File created: " + isCreated);  
+}  
+System.out.println("文件名："+file.getName());  
+System.out.println("文件绝对路径："+file.getAbsolutePath());  
+System.out.println("文件父路径："+file.getParent());  
+System.out.println("文件大小（字节）："+file.length());  
+System.out.println("文件是否存在："+file.exists());  
+System.out.println("是否为文件："+file.isFile());  
+System.out.println("是否为目录："+file.isDirectory());  
+System.out.println("是否可读："+file.canRead());  
+System.out.println("是否可写："+file.canWrite());
 ```
 ### 4.获取信息
 |方法|说明|
@@ -96,3 +116,17 @@ tempDir.deleteOnExit();
 |`list()`|返回目录下所有文件 / 目录名的字符串数组；非目录返回`null`|
 |`listFiles()`|返回目录下所有文件 / 目录的`File`数组；非目录返回`null`|
 |`listFiles(FilenameFilter)`|按过滤器筛选目录下的`File`对象|
+示例:
+```java
+File dir = new File("testDir");
+if (dir.isDirectory()) {
+    // 遍历所有文件/目录
+    File[] files = dir.listFiles();
+    for (File f : files) {
+        System.out.println(f.getName() + " | " + (f.isFile() ? "文件" : "目录"));
+    }
+    
+    // 筛选txt文件
+    File[] txtFiles = dir.listFiles((d, name) -> name.endsWith(".txt"));
+}
+```
