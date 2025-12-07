@@ -334,6 +334,28 @@ public class Pathdemo {
 
 小文件的读写:
 
+```JAVA
+import java.io.IOException;  
+import java.nio.charset.StandardCharsets;  
+import java.nio.file.Files;  
+import java.nio.file.Paths;  
+import java.nio.file.StandardOpenOption;  
+import java.util.List;  
+  
+public class FILES_RW {  
+    public static void main(String[] args) throws IOException {  
+       //读取文本文件内容  
+        List<String> lines= Files.readAllLines(Paths.get("C:\\Users\\zcy\\Desktop\\test.txt"), StandardCharsets.UTF_8);  
+       lines.forEach(line-> System.out.println("读取内容："+line));  
+       //写如文本文件（覆盖写入）  
+        Files.write(Paths.get("C:\\Users\\zcy\\Desktop\\test.txt"),"Aamdeus".getBytes(StandardCharsets.UTF_8));  
+        //追加写入文本文件  
+        Files.write(Paths.get("C:\\Users\\zcy\\Desktop\\test.txt"),"\n追加内容".getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);  
+        // 读取字节文件（如图片）  
+        byte[] imageBytes = Files.readAllBytes(Paths.get("C:\\Users\\zcy\\Desktop\\c11cd4a3-3d6f-4c56-a1d5-d59444cd77d6.png"));  
+        System.out.println("图片字节数：" + imageBytes.length);  
+    }  
+}
 ```
 
-```
+文件/目录操作(复制 移动 删除)
