@@ -300,3 +300,35 @@ NIO.2（JSR 203）重构了传统 File 类，是日常开发中最常用的 IO A
 
 **1.Path：路径抽象（替代 File 类）**
 
+```java
+import java.nio.file.Path;  
+import java.nio.file.Paths;  
+  
+public class Pathdemo {  
+    public static void main(String[] args) {  
+        // 1. 创建Path（推荐方式）  
+        Path absolutePath = Paths.get("D:/test.txt"); // 绝对路径  
+        Path relativePath = Paths.get("src", "main", "java"); // 相对路径（拼接）  
+        Path fromFile = new java.io.File("test.txt").toPath(); // File→Path  
+  
+        // 2. 核心路径操作  
+        System.out.println("绝对路径：" + relativePath.toAbsolutePath());  
+        System.out.println("父路径：" + absolutePath.getParent());  
+        System.out.println("文件名：" + absolutePath.getFileName());  
+        System.out.println("是否以.txt结尾：" + absolutePath.endsWith("txt"));  
+  
+        // 3. 路径拼接（resolve）  
+        Path subPath = absolutePath.resolve("sub.txt"); // D:/test/sub.txt  
+        System.out.println("拼接路径：" + subPath);  
+  
+        // 4. 相对路径（relativize）  
+        Path path1 = Paths.get("D:/a/b");  
+        Path path2 = Paths.get("D:/a/c/d");  
+        Path relative = path1.relativize(path2); // ../c/d 基于Path1到Path2的相对路径  
+        System.out.println("相对路径：" + relative);  
+    }  
+}
+```
+
+**2.Files：文件操作工具类（一站式解决）**
+
