@@ -21,13 +21,9 @@
 
 示例：
 ```java
-// 绝对路径
-File file1 = new File("D:\\test\\file.txt");
-// 相对路径
-File file2 = new File("test\\file.txt");
-// 父路径+子路径
-File file3 = new File("D:\\test", "file.txt");
-// 父File+子路径
-File parent = new File("D:\\test");
-File file4 = new File(parent, "file.txt");
+File file1=new File("C:\\Users\\zcy\\IdeaProjects\\classdemo\\test.txt");//绝对路径 
+File file2=new  File("test.txt");//相对路径，相对于工程目录  
+File file3=new File("C:\\Users\\zcy\\IdeaProjects\\classdemo","test.txt");//父路径+子路径  
+File parent=new File("C:\\Users\\zcy\\IdeaProjects\\classdemo");  
+File file4=new File(parent,"test.txt");//父路径对象+子路径
 ```
