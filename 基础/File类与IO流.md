@@ -50,3 +50,14 @@ File dir2 = new File("testDir/subDir1/subDir2"); dir2.mkdirs();
 |`delete()`|删除文件 / 空目录，成功返回`true`；非空目录删除失败（需先删内部文件）|
 |`deleteOnExit()`|JVM 退出时删除文件 / 目录（用于临时文件清理）|
 示例:
+```java
+File file = new File("test.txt");
+// 立即删除文件
+if (file.exists()) {
+    file.delete();
+}
+
+// JVM退出时删除临时目录
+File tempDir = new File("temp");
+tempDir.deleteOnExit();
+```
