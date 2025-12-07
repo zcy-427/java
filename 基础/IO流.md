@@ -207,4 +207,6 @@ NIO（Non-Blocking IO）是 BIO 的升级，核心是 “缓冲区导向 + 非�
 注意事项:
 1. **`clear()` 不是删除数据**：仅重置 `position=0`、`limit=capacity`、`mark=-1`，数据仍存在，直到被覆盖；
 2. **`flip()` 是读写切换核心**：写入后必须 `flip()` 才能读取，读取后若要重新写入，需调用 `clear()` 或 `compact()`；
-3. 
+3.  **`compact()` 适配边读边写**：将未读取的数据移到缓冲区开头，position 设为未读取数据的末尾，limit=capacity，适合部分读取后继续写入的场景。
+
+**Buffer核心操作**
