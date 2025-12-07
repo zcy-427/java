@@ -1,4 +1,4 @@
-在 Java 中，`File`类用于操作文件 / 目录的**元数据**（路径、名称、大小、权限等），但不处理文件内容；IO 流（Input/Output Stream）则专注于文件 / 设备间的**数据传输**（读 / 写内容）。两者结合可完成文件的创建、删除、读写等核心操作。
+在 Java 中，`File`类用于操作文件 / 目录的**元数据**（路径、名称、大小、权限等），但不处理文件内容；IO 流（Input/Output Stream）则专注于文件 / 设备间的**数据传输**（读 / 写内容）。两者结合可完成文件的创建、删除、读写等核心操作。注意本章只介绍java7+前的File类,对于Files类的介绍在这里:[Files类](Files类.md)
 
 ## File类
 
@@ -13,11 +13,11 @@
 
 ### 构造方法
 
-|构造方法|说明|
-|---|---|
-|`File(String pathname)`|通过路径名创建 File 对象（文件 / 目录）|
-|`File(String parent, String child)`|父路径 + 子路径创建 File 对象|
-|`File(File parent, String child)`|父 File 对象 + 子路径创建 File 对象|
+| 构造方法                                | 说明                        |
+| ----------------------------------- | ------------------------- |
+| `File(String pathname)`             | 通过路径名创建 File 对象（文件 / 目录）  |
+| `File(String parent, String child)` | 父路径 + 子路径创建 File 对象       |
+| `File(File parent, String child)`   | 父 File 对象 + 子路径创建 File 对象 |
 
 示例：
 ```java
@@ -52,8 +52,7 @@ System.out.println("临时文件路径：" + tempFile.getAbsolutePath());
 
 `prefix`表示临时文件的前缀（必须至少 3 个字符），比如 "temp_"；`suffix`：文件名后缀（可传 `null`，默认生成 `.tmp` 后缀），例如 `.txt`。其文件名由指定的前缀（prefix）、后缀（suffix）和自动生成的随机字符组成，以保证多线程 / 多进程下文件名不重复。最终文件名格式：`[prefix][随机字符][suffix]`
 
-在java7+后
-### 删除操作
+### 2.删除操作
 |方法|说明|
 |---|---|
 |`delete()`|删除文件 / 空目录，成功返回`true`；非空目录删除失败（需先删内部文件）|
@@ -70,3 +69,30 @@ if (file.exists()) {
 File tempDir = new File("temp");
 tempDir.deleteOnExit();
 ```
+### 3.判断操作
+| 方法                       | 说明            |
+| ------------------------ | ------------- |
+| `exists()`               | 判断文件 / 目录是否存在 |
+| `isFile()`               | 判断是否为文件（非目录）  |
+| `isDirectory()`          | 判断是否为目录（非文件）  |
+| `isAbsolute()`           | 判断路径是否为绝对路径   |
+| `canRead()`/`canWrite()` | 判断文件是否可读 / 可写 |
+示例:
+```java
+
+```
+### 4.获取信息
+|方法|说明|
+|---|---|
+|`getName()`|获取文件名 / 目录名（不含路径）|
+|`getPath()`|获取构造时的路径（可能是相对路径）|
+|`getAbsolutePath()`|获取绝对路径（可能包含冗余如`../`）|
+|`getCanonicalPath()`|获取规范路径（解析冗余路径，需处理`IOException`）|
+|`length()`|获取文件大小（字节）；目录返回 0|
+|`lastModified()`|获取最后修改时间（毫秒值，可转`Date`）|
+### 5.目录遍历
+|方法|说明|
+|---|---|
+|`list()`|返回目录下所有文件 / 目录名的字符串数组；非目录返回`null`|
+|`listFiles()`|返回目录下所有文件 / 目录的`File`数组；非目录返回`null`|
+|`listFiles(FilenameFilter)`|按过滤器筛选目录下的`File`对象|
