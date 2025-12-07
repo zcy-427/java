@@ -102,6 +102,82 @@ public class rw {
 ```
 
 序列化（对象→字节）+ 反序列化（字节→对象）
+```Java
+import java.io.*;  
+  
+//对象必须要实现Serializable接口才能被序列化  
+class User implements java.io.Serializable {  
+    private static final long serialVersionUID = 1L;  
+    private String name;  
+    private int age;  
+  
+    public User(String name, int age) {  
+        this.name = name;  
+        this.age = age;  
+    }  
+  
+    public String getName() {  
+        return name;  
+    }  
+  
+    public int getAge() {  
+        return age;  
+    }  
+}  
+public class Serialization {  
+    public static void _Serialization(String Serialization_file, Object obj)  
+    {  
+        try(FileOutputStream fis=new FileOutputStream(Serialization_file);//节点流  
+            ObjectOutputStream oos= new ObjectOutputStream(fis);//处理流  
+            )  
+        {  
+            oos.writeObject(obj);  
+            System.out.println("序列化成功");  
+        }  
+        catch (IOException e)  
+        {  
+            System.out.println("序列化失败："+e.getMessage());  
+        }  
+    }  
+  
+    public static void _Deserialization(String Serialization_file)  
+    {  
+        try(FileInputStream fis=new FileInputStream(Serialization_file);//节点流  
+            ObjectInputStream ois= new ObjectInputStream(fis);//处理流  
+        )  
+        {  
+            Object obj=ois.readObject();  
+            if(obj instanceof User)  
+            {  
+                User user=(User)obj;  
+                System.out.println("反序列化成功，name："+user.getName()+",age:"+user.getAge());  
+            }  
+        }  
+        catch (IOException | ClassNotFoundException e)  
+        {  
+            System.out.println("反序列化失败："+e.getMessage());  
+        }  
+    }  
+    public static void main(String[] args) {  
+        String Serialization_file="C:\\Users\\zcy\\Desktop\\user.ser";  
+        User user=new User("zhangsan",20);  
+        _Serialization(Serialization_file,user);  
+        _Deserialization(Serialization_file);  
+    }  
+}
 ```
 
-```
+BIO的缺陷:
+
+|痛点|具体表现|解决方案|
+|---|---|---|
+|阻塞性|读写时线程阻塞，直到操作完成|NIO Selector（多路复用）|
+|单向性|一个流只能读 / 写，无法双向操作|NIO Channel（双向通道）|
+|API 繁琐|File 类方法返回值模糊（如 delete () 返回 boolean）|NIO.2 Path+Files API|
+|编码隐患|FileReader/FileWriter 默认系统编码|显式指定 Charset|
+
+---
+### NIO：高并发 / 大文件核心（Buffer+Channel+Selector）
+
+NIO（Non-Blocking IO）是 BIO 的升级，核心是 “缓冲区导向 + 非阻塞 + 多路复用”，适合大文件传输、高并发网络编程。
+
