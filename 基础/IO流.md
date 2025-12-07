@@ -49,8 +49,54 @@ IO 的核心是**打破程序内存边界**，实现程序与外部数据源（�
 | 字符桥接流 | InputStreamReader/OutputStreamWriter     | 字节流→字符流（指定编码）  | 替代 FileReader/FileWriter              |
 | 字符处理流 | BufferedReader/BufferedWriter            | 字符缓冲 + 按行读写    | readLine () 返回 null 表示读完              |
 | 字符处理流 | PrintWriter                              | 格式化输出 + 自动刷新   | 适合日志 / 控制台输出                          |
-一些示例:
+**示例**:
 
-```
-
+简单的文件读写
+```Java
+import java.io.*;  
+  
+public class rw {  
+    public static void read(String targetFile)  
+    {  
+        // try-with-resources：自动关闭所有实现AutoCloseable的资源  
+        try(FileInputStream fis = new FileInputStream(targetFile);//字节流  
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");//桥接流，字节转字符，显式指定编码格式  
+             BufferedReader br = new BufferedReader(isr);//处理流，缓冲增强，按行读取  
+        )  
+        {  
+            String line;  
+            while ((line = br.readLine()) != null)  
+            {  
+                System.out.println("读取内容："+line);  
+            }  
+        }  
+        catch (IOException e)  
+        {  
+            System.err.println("读取失败：" + e.getMessage());  
+        }  
+    }  
+  
+    public static void write(String targetFile,String content)  
+    {  
+        try(FileOutputStream fos=new FileOutputStream(targetFile,true);  
+            OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");  
+            BufferedWriter bw = new BufferedWriter(osw)  
+        )  
+        {  
+            bw.write(content);//写入内容  
+            bw.newLine();//跨平台换行，兼容Windows与Linux  
+            bw.flush();// 缓冲流手动刷新（关闭时自动刷，大文件建议手动刷）  
+        }catch (IOException e)  
+        {  
+            System.err.println("写入失败："+e.getMessage());  
+        }  
+    }  
+  
+    public static void main(String[] args) {  
+        String targetFile="C:\\Users\\zcy\\Desktop\\test.txt";  
+        write(targetFile,"Hello,world!");  
+        write(targetFile,"你好，世界！");  
+        read(targetFile);  
+    }  
+}
 ```
