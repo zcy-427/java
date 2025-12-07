@@ -27,3 +27,26 @@ File file3=new File("C:\\Users\\zcy\\IdeaProjects\\classdemo","test.txt");//父�
 File parent=new File("C:\\Users\\zcy\\IdeaProjects\\classdemo");  
 File file4=new File(parent,"test.txt");//父路径对象+子路径
 ```
+### 核心方法
+#### 1.创建操作
+|方法|说明|
+|---|---|
+|`createNewFile()`|创建空文件，文件已存在则返回`false`；需处理`IOException`|
+|`mkdir()`|创建单级目录，父目录不存在则失败，返回`false`|
+|`mkdirs()`|创建多级目录（父目录不存在则自动创建），返回`boolean`|
+|`createTempFile(prefix, suffix)`|创建临时文件（默认在系统临时目录）|
+示例：
+```java
+File file = new File("test.txt"); // 创建空文件 
+if (!file.exists()) { boolean isCreated = file.createNewFile(); System.out.println("文件创建：" + isCreated); }
+// 创建单级目录（如果依赖父目录创建，而父目录不存在，则无法创建）
+File dir1 = new File("testDir"); dir1.mkdir(); 
+// 创建多级目录（父目录不存在也能创建） 
+File dir2 = new File("testDir/subDir1/subDir2"); dir2.mkdirs();
+```
+### 删除操作
+|方法|说明|
+|---|---|
+|`delete()`|删除文件 / 空目录，成功返回`true`；非空目录删除失败（需先删内部文件）|
+|`deleteOnExit()`|JVM 退出时删除文件 / 目录（用于临时文件清理）|
+示例:
