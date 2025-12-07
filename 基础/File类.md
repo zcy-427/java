@@ -1,7 +1,4 @@
 在 Java 中，`File`类用于操作文件 / 目录的**元数据**（路径、名称、大小、权限等），但不处理文件内容；IO 流（Input/Output Stream）则专注于文件 / 设备间的**数据传输**（读 / 写内容）。两者结合可完成文件的创建、删除、读写等核心操作。注意本章只介绍java7+前的File类,对于Files类的介绍在这里:[Files类](Files类.md)
-
-## File类
-
 ### 关键概念
 
 |概念|说明|
@@ -72,8 +69,65 @@ tempDir.deleteOnExit();
 这里需要注意,Delete只能够删除空目录，删除非空目录需递归删除内部所有文件 / 子目录；
 
 示例:
-```
-
+```java
+import java.io.File;  
+public class DeleteDirDemo {  
+    public static void main(String[] args) {  
+        // 目标目录（可替换为你要删除的目录路径，相对/绝对路径均可）  
+        String targetDirPath = "C:\\Users\\zcy\\IdeaProjects\\classdemo\\testDir"; // 非空目录，含文件和子目录  
+        File targetDir = new File(targetDirPath);  
+  
+        // 调用递归删除方法  
+        boolean deleteSuccess = deleteDirectory(targetDir);  
+  
+        // 输出结果  
+        if (deleteSuccess) {  
+            System.out.println("目录删除成功：" + targetDir.getAbsolutePath());  
+        } else {  
+            System.out.println("目录删除失败（可能不存在、权限不足或被占用）：" + targetDir.getAbsolutePath());  
+        }  
+    }  
+  
+    /**  
+     * 递归删除目录（支持非空目录）  
+     * @param dir 要删除的目录 File 对象  
+     * @return true：删除成功；false：删除失败  
+     */  
+    public static boolean deleteDirectory(File dir) {  
+        // 边界条件1：目录不存在 → 直接返回失败  
+        if (!dir.exists()) {  
+            System.out.println("目录不存在：" + dir.getAbsolutePath());  
+            return false;  
+        }  
+  
+        // 边界条件2：不是目录 → 直接返回失败（避免误删文件）  
+        if (!dir.isDirectory()) {  
+            System.out.println("不是目录，无法删除：" + dir.getAbsolutePath());  
+            return false;  
+        }  
+  
+        // 步骤1：遍历目录下的所有子项（文件/子目录）  
+        File[] files = dir.listFiles(); // 获取目录内所有子项  
+        if (files != null) { // 防止空指针（如目录无权限访问时返回null）  
+            for (File file : files) {  
+                // 子项是文件 → 直接删除  
+                if (file.isFile()) {  
+                    boolean isFileDeleted = file.delete();  
+                    System.out.println("删除文件：" + file.getName() + " → " + (isFileDeleted ? "成功" : "失败"));  
+                }  
+                // 子项是目录 → 递归调用删除方法（先清空子目录）  
+                else if (file.isDirectory()) {  
+                    deleteDirectory(file); // 递归删除子目录  
+                }  
+            }  
+        }  
+  
+        // 步骤2：所有子项删除完成后，删除当前空目录  
+        boolean isDirDeleted = dir.delete();  
+        System.out.println("删除目录：" + dir.getName() + " → " + (isDirDeleted ? "成功" : "失败"));  
+        return isDirDeleted;  
+    }  
+}
 ```
 ### 3.判断操作
 | 方法                       | 说明            |
@@ -130,3 +184,8 @@ if (dir.isDirectory()) {
     File[] txtFiles = dir.listFiles((d, name) -> name.endsWith(".txt"));
 }
 ```
+### 注意事项
+
+- `mkdir()` vs `mkdirs()`：前者仅创建单级目录，父目录不存在则失败；后者创建多级目录（推荐）；
+- 删除目录：`delete()`只能删除**空目录**，删除非空目录需递归删除内部所有文件 / 子目录；
+- 路径分隔符：避免硬编码`\`（Windows）或`/`（Linux），优先用`File.separator`（跨平台）
