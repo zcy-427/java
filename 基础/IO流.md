@@ -209,7 +209,7 @@ NIO（Non-Blocking IO）是 BIO 的升级，核心是 “缓冲区导向 + 非�
 2. **`flip()` 是读写切换核心**：写入后必须 `flip()` 才能读取，读取后若要重新写入，需调用 `clear()` 或 `compact()`；
 3.  **`compact()` 适配边读边写**：将未读取的数据移到缓冲区开头，position 设为未读取数据的末尾，limit=capacity，适合部分读取后继续写入的场景。
 
-**Buffer核心操作**
+**1.Buffer核心操作**
 ```java
 import java.nio.ByteBuffer;  
 import java.nio.charset.StandardCharsets;  
@@ -251,6 +251,52 @@ Channel 是双向的（可同时读 / 写），必须配合 Buffer 使用，支�
 | ServerSocketChannel | TCP 服务端通道 | 非阻塞模式，支持监听连接                   |
 | DatagramChannel     | UDP 通道    | 无连接，支持广播 / 组播                  |
 FileChannel：零拷贝复制大文件
+```java
+import java.io.FileInputStream;  
+import java.io.FileNotFoundException;  
+import java.io.FileOutputStream;  
+import java.io.IOException;  
+import java.nio.channels.FileChannel;  
+  
+public class FileChnannel_demo {  
+    public static void copyFile(String srcPath, String destPath) {  
+        long startTime = System.currentTimeMillis();  
+  
+        // 打开源文件和目标文件的Channel  
+        try(FileChannel srcChannel=new FileInputStream(srcPath).getChannel();  
+            FileChannel outChannel=new FileOutputStream(destPath).getChannel();  
+        )  
+        {  
+            long transferred = 0;  
+            long size = srcChannel.size();  
+            //transferTo 存在 “单次传输上限”（受操作系统内核限制，如 Linux 通常单次最大传 8MB），无法保证一次传完所有数据，因此需循环直到所有字节传输完毕。  
+            while (transferred < size) {  
+                transferred += srcChannel.transferTo(transferred, size - transferred, outChannel);  
+            }  
+            System.out.println("复制完成，耗时：" + (System.currentTimeMillis() - startTime) + "ms");  
+        }catch (FileNotFoundException e) {  
+            System.out.println("error：" + e.getMessage());  
+        } catch (IOException e) {  
+            System.out.println("文件复制失败：" + e.getMessage());  
+        }  
+    }  
+  
+    public static void main(String[] args) {  
+        String srcPath = "C:\\Users\\zcy\\Desktop\\test.txt";  
+        String destPath = "C:\\Users\\zcy\\Desktop\\ccs\\";  
+        copyFile(srcPath, destPath);  
+    }  
+}
 ```
+**3.Selector：多路复用器（高并发核心）**
 
-```
+允许**一个线程管理多个 Channel**，仅处理 “就绪” 的 Channel，解决 BIO 线程阻塞问题。
+
+//todo 学完[网络编程](网络编程.md)再来
+
+### NIO.2（JDK7+）：现代文件 IO 主力（Path+Files）
+
+NIO.2（JSR 203）重构了传统 File 类，是日常开发中最常用的 IO API，核心是`Path`（路径）和`Files`（文件工具）。
+
+**1.Path：路径抽象（替代 File 类）**
+
