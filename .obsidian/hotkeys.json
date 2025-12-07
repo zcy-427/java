@@ -11,8 +11,7 @@
   "editor:set-heading-1": [
     {
       "modifiers": [
-        "Alt",
-        "Mod"
+        "Alt"
       ],
       "key": "1"
     }
@@ -20,8 +19,7 @@
   "editor:set-heading-2": [
     {
       "modifiers": [
-        "Alt",
-        "Mod"
+        "Alt"
       ],
       "key": "2"
     }
@@ -29,8 +27,7 @@
   "editor:set-heading-3": [
     {
       "modifiers": [
-        "Alt",
-        "Mod"
+        "Alt"
       ],
       "key": "3"
     }
@@ -38,8 +35,7 @@
   "editor:set-heading-4": [
     {
       "modifiers": [
-        "Alt",
-        "Mod"
+        "Alt"
       ],
       "key": "4"
     }
@@ -47,8 +43,7 @@
   "editor:set-heading-5": [
     {
       "modifiers": [
-        "Alt",
-        "Mod"
+        "Alt"
       ],
       "key": "5"
     }
@@ -56,8 +51,7 @@
   "editor:set-heading-6": [
     {
       "modifiers": [
-        "Alt",
-        "Mod"
+        "Alt"
       ],
       "key": "6"
     }
