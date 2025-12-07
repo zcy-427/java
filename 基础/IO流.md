@@ -181,7 +181,7 @@ BIO的缺陷:
 
 NIO（Non-Blocking IO）是 BIO 的升级，核心是 “缓冲区导向 + 非阻塞 + 多路复用”，适合大文件传输、高并发网络编程。
 
-1.**Buffer:数据容器(替代BIO的字节数组)**
+#### 1.**Buffer:数据容器(替代BIO的字节数组)**
 所有 NIO 数据读写都通过 Buffer 完成，核心是 “标记位管理”。
 
 **核心属性**
@@ -210,3 +210,47 @@ NIO（Non-Blocking IO）是 BIO 的升级，核心是 “缓冲区导向 + 非�
 3.  **`compact()` 适配边读边写**：将未读取的数据移到缓冲区开头，position 设为未读取数据的末尾，limit=capacity，适合部分读取后继续写入的场景。
 
 **Buffer核心操作**
+```java
+import java.nio.ByteBuffer;  
+import java.nio.charset.StandardCharsets;  
+  
+public class Bufferdemo {  
+    public static void main(String[] args) {  
+        ByteBuffer buffer=ByteBuffer.allocate(1024);//分配一个容量为1024字节的缓冲区,堆内存：allocate；直接内存：allocateDirect，效率更高  
+        System.out.println("初始状态：position=" + buffer.position() + ", limit=" + buffer.limit() + ", capacity=" + buffer.capacity());  
+        //写入数据：  
+        String data="Hello, NIO Buffer!";  
+        buffer.put(data.getBytes(StandardCharsets.UTF_8));//将字符串转换为字节数组并写入缓冲区,编码格式为UTF-8  
+        System.out.println("写入数据后：position=" + buffer.position() + ", limit=" + buffer.limit() + ", capacity=" + buffer.capacity());  
+        //切换为读模式：  
+        buffer.flip();//必须调用flip()方法  
+        System.out.println("切换读模式后：position=" + buffer.position() + ", limit=" + buffer.limit() + ", capacity=" + buffer.capacity());  
+        //读取数据：  
+        byte[] bytes=new byte[buffer.remaining()];//根据可读数据长度创建字节数组，remaining()=limit-position（剩余可读字节）  
+        buffer.get(bytes);//将数据从缓冲区读取到字节数组  
+        String readData=new String(bytes, StandardCharsets.UTF_8);//将字节数组转换为字符串  
+        System.out.println("读取的数据：" + readData);  
+        System.out.println("读取数据后：position=" + buffer.position() + ", limit=" + buffer.limit() + ", capacity=" + buffer.capacity());  
+        //清空缓冲区（重用缓冲区）：  
+        buffer.clear();//清空缓冲区，position=0，limit=capacity，但数据未被清除  
+        System.out.println("清空缓冲区后：position=" + buffer.position() + ", limit=" + buffer.limit() + ", capacity=" + buffer.capacity());  
+    }  
+}
+```
+
+#### 2.**Channel：双向数据通道（替代 BIO 的单向流）**
+
+Channel 是双向的（可同时读 / 写），必须配合 Buffer 使用，支持非阻塞模式。
+
+**核心实现类**
+
+| Channel 类型          | 用途        | 核心特性                           |
+| ------------------- | --------- | ------------------------------ |
+| FileChannel         | 文件读写 / 复制 | 支持零拷贝（transferTo/transferFrom） |
+| SocketChannel       | TCP 客户端通道 | 非阻塞模式，支持连接 / 读写                |
+| ServerSocketChannel | TCP 服务端通道 | 非阻塞模式，支持监听连接                   |
+| DatagramChannel     | UDP 通道    | 无连接，支持广播 / 组播                  |
+FileChannel：零拷贝复制大文件
+```
+
+```
