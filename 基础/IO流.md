@@ -396,17 +396,14 @@ public class directory_traversal {
                 .forEach(p -> System.out.println(p));  
   
         // 2. 递归遍历（深度5，过滤可读文件）  
-        System.out.println("\n=== 递归遍历src目录 ===");  
-        Files.walk(Paths.get("src"), 5)  
-                .filter(Files::isReadable)  
-                .forEach(p -> {  
-                    try {  
-                        System.out.println(p + " → 大小：" + Files.size(p) + "字节");  
-                    } catch (Exception e) {  
-                        e.printStackTrace();  
-                    }  
-                });  
+       System.out.println("\n=== 递归遍历src目录 ===");  
+Files.walk(Paths.get("src"),5)  
+        .filter(Files::isReadable) //判断是否可读  
+        .filter(Files::isRegularFile)//判断是否为普通文件  
+        .filter(p->p.toString().endsWith(".java"))//过滤出.java文件  
+        .forEach(p-> System.out.println(p+"，大小："+p.toFile().length()+"字节"));
     }  
 }
 ```
 
+ 这里需要说一下list与walk，list相当于是深度为1的
