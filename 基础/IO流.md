@@ -406,4 +406,4 @@ Files.walk(Paths.get("src"),5)
 }
 ```
 
- 这里需要说一下list与walk，list相当于是深度为1的
+ 这里需要说一下list与walk，list相当于是深度为1的walk
