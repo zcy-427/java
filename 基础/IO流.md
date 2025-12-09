@@ -292,7 +292,7 @@ public class FileChnannel_demo {
 
 允许**一个线程管理多个 Channel**，仅处理 “就绪” 的 Channel，解决 BIO 线程阻塞问题。
 
-//todo 学完[网络编程](网络编程.md)再来
+- [ ] Selectord待定
 
 ### NIO.2（JDK7+）：现代文件 IO 主力（Path+Files）
 
@@ -454,4 +454,12 @@ public class WatchServer_demo {
 }
 ```
 
-这里需要解释一下
+这里需要解释一下[WatchService及其相关类](WatchService及其相关类.md) 工作流程
+
+1. **创建 WatchService 实例**；
+2. **注册目标目录（Path）** 到 WatchService，指定要监控的事件类型；
+3. **循环获取 WatchKey**（通过 `take()`/`poll()`）；
+4. **处理 WatchKey 中的事件**（遍历 `pollEvents()` 结果）；
+5. **重置 WatchKey**（`reset()`），使其回到 `READY` 状态以接收新事件；
+6. **关闭 WatchService**（使用完毕后释放资源）。
+
