@@ -410,6 +410,48 @@ Files.walk(Paths.get("src"),5)
 
 WatchService：文件监听（配置热加载）
 ```java
-
+import java.io.IOException;  
+import java.nio.file.*;  
+  
+public class WatchServer_demo {  
+    public static void main(String[] args) {  
+        //打开WatchService  
+        try(WatchService watchService= FileSystems.getDefault().newWatchService())  
+        {  
+            //注册监听目录.监听创建、修改、删除事件  
+            Path watchdir=Path.of("C:\\Users\\zcy\\Desktop\\WatchDir");  
+            watchdir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,  
+                    StandardWatchEventKinds.ENTRY_DELETE,  
+                    StandardWatchEventKinds.ENTRY_MODIFY);  
+            //持续监听事件  
+            while(true)  
+            {  
+                WatchKey key=watchService.take();//获取下一个事件  
+                for(WatchEvent<?> event :key.pollEvents())  
+                {  
+                    WatchEvent.Kind<?> kind=event.kind();  
+                    if(kind==StandardWatchEventKinds.OVERFLOW)  
+                    {  
+                        continue;//事件丢失或溢出,跳过  
+                    }  
+                    Path fileName=(Path) event.context();  
+                    System.out.println("事件类型："+kind.name()+",文件名："+fileName);  
+                }  
+  
+                // 重置WatchKey，否则无法继续监听  
+                boolean valid = key.reset();  
+                if (!valid) {  
+                    System.out.println("WatchKey失效，停止监听");  
+                    break;  
+                }  
+            }  
+        }catch (IOException | InterruptedException e)  
+        {  
+            e.printStackTrace();  
+        }  
+  
+    }  
+}
 ```
 
+这里需要解释一下
