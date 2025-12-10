@@ -45,6 +45,106 @@ record Person(String name, int age) {}
 1.基本的使用
 
 ```Java
+// 定义 Record
+record User(String id, String username, int age) {}
 
+// 实例化（调用自动生成的全参构造器）
+User user = new User("1001", "张三", 25);
+
+// 访问字段（调用访问器方法）
+System.out.println(user.id()); // 输出：1001
+System.out.println(user.username()); // 输出：张三
+
+// 自动生成的 toString
+System.out.println(user); // 输出：User[id=1001, username=张三, age=25]
+
+// equals 比较（基于所有组件）
+User user2 = new User("1001", "张三", 25);
+System.out.println(user.equals(user2)); // 输出：true
 ```
-  
+
+2.自定义紧凑构造器（参数验证）
+紧凑构造器用于修改默认构造器的逻辑（如参数校验），无需写参数列表
+
+```java
+record User(String id, String username, int age) {
+    // 紧凑构造器：验证参数合法性
+    public User {
+        if (age < 0 || age > 150) {
+            throw new IllegalArgumentException("年龄非法：" + age);
+        }
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("ID 不能为空");
+        }
+        // 无需手动赋值，编译器自动处理
+    }
+}
+
+// 测试：抛出异常
+// User invalidUser = new User("", "李四", 200);
+```
+
+3.实现接口 + 静态方法
+
+```java
+// 定义接口
+interface Printable {
+    void printInfo();
+}
+
+// Record 实现接口
+record Product(String sku, String name, double price) implements Printable {
+    // 静态字段
+    public static final double MIN_PRICE = 0.01;
+
+    // 静态方法
+    public static Product createDefault() {
+        return new Product("DEFAULT", "默认商品", MIN_PRICE);
+    }
+
+    // 实现接口方法
+    @Override
+    public void printInfo() {
+        System.out.printf("商品：%s，SKU：%s，价格：%.2f%n", name, sku, price);
+    }
+}
+
+// 使用
+Product defaultProduct = Product.createDefault();
+defaultProduct.printInfo(); // 输出：商品：默认商品，SKU：DEFAULT，价格：0.01
+```
+
+4.处理可变组件（如 List）
+
+```java
+import java.util.List;
+import java.util.Objects;
+
+record Order(String orderId, List<String> items) {
+    // 紧凑构造器：拷贝集合，防止外部修改
+    public Order {
+        // List.copyOf 返回不可变列表
+        items = List.copyOf(Objects.requireNonNull(items));
+    }
+}
+
+// 测试
+List<String> items = List.of("苹果", "香蕉");
+Order order = new Order("OD001", items);
+// order.items().add("橙子"); // 抛出 UnsupportedOperationException（不可变列表）
+```
+
+5.重载构造器
+
+```java
+record Person(String name, int age) {
+    // 重载构造器：默认年龄 18
+    public Person(String name) {
+        this(name, 18); // 必须调用主构造器
+    }
+}
+
+// 使用
+Person p = new Person("李四");
+System.out.println(p.age()); // 输出：18
+```
