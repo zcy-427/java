@@ -46,7 +46,16 @@ WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.
 
 #### 3. WatchKey（监控密钥）
 
-`Path` 注册到 `WatchService` 后返回的「注册凭证」，代表「监控服务 - 被监控路径」的关联关系，所有触发的事件都会绑定到对应的 `WatchKey`。
+`Path` 注册到 `WatchService` 后返回的「注册凭证」，代表「监控服务 - 被监控路径」的关联关系，即WatchService与其监控的路径之间绑定在唯一的WatchKey上，所有在这个路径上触发的事件其对应的 `WatchKey`都是同一个。
+
+|场景|是否生成新 WatchKey|示例|
+|---|---|---|
+|同一 Path 首次注册到 WatchService|是（生成唯一 Key）|注册 `./dir1` → 得到 Key1|
+|同一 Path 触发多个事件（创建 / 修改 / 删除）|否（复用同一个 Key）|Key1 中包含「创建文件 A」「修改文件 A」「删除文件 A」三个事件|
+|同一 Path 重复注册到同一个 WatchService|否（返回已有的 Key）|再次调用 `dir1.register(watcher, ...)` → 仍返回 Key1|
+|不同 Path 注册到同一个 WatchService|是（每个 Path 对应一个 Key）|注册 `./dir2` → 得到 Key2；注册 `./dir3` → 得到 Key3|
+|同一 Path 在不同 WatchService 中注册|是（不同服务生成不同 Key）|WatchService1 注册 `./dir1` → Key1；WatchService2 注册 `./dir1` → Key4|
+|原 Key 失效后，重新注册同一 Path|是（生成新 Key）|Key1 失效（如目录被删除）→ 重新注册 `./dir1` → 得到 Key5|
 
 **核心状态**：
 
@@ -110,9 +119,6 @@ WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.
 
 ### 示例代码：监控目录的创建 / 修改 / 删除事件
 
-java
-
-运行
 
 ```java
 import java.io.IOException;
