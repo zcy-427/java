@@ -170,3 +170,134 @@ public class Selector_Server {
     }  
 }
 ```
+
+客户端：
+
+```Java
+import java.io.IOException;  
+import java.net.InetSocketAddress;  
+import java.net.Socket;  
+import java.nio.ByteBuffer;  
+import java.nio.channels.Channel;  
+import java.nio.channels.SelectionKey;  
+import java.nio.channels.Selector;  
+import java.nio.channels.SocketChannel;  
+import java.util.Iterator;  
+import java.util.Scanner;  
+import java.util.Set;  
+  
+public class Selector_Client {  
+    //服务器端口号与IP  
+    private static final int port = 8080;  
+    private static final String host = "127.0.0.1";  
+    public static void main(String[] args) {  
+        try(Selector selector=Selector.open();)//创建Selector  
+        {  
+            //创建SocketChannel  
+            SocketChannel socketChannel = SocketChannel.open();  
+            //设置为非阻塞模式  
+            socketChannel.configureBlocking(false);  
+            //连接服务端，socketChannel.connect() 不会等待连接完全建立就返回（避免线程阻塞），此时连接处于 “pending（挂起）” 状态。  
+            socketChannel.connect(new InetSocketAddress(host, port));  
+            //将SocketChannel注册到Selector，监听连接事件  
+            socketChannel.register(selector, SelectionKey.OP_CONNECT);  
+            System.out.println("客户端启动，正在连接服务端...");  
+  
+            //事件循环  
+            while(true)  
+            {  
+                //阻塞等待就绪事件  
+                selector.select();  
+                //获取就绪的通道数量  
+                Set<SelectionKey> selectedKeys = selector.selectedKeys();  
+                //获取迭代器  
+                Iterator<SelectionKey> keyIterator = selectedKeys.iterator();  
+  
+                while(keyIterator.hasNext())  
+                {  
+                    SelectionKey key = keyIterator.next();  
+                    keyIterator.remove(); // 必须移除，避免重复处理  
+  
+                    //========== 处理连接完成事件（OP_CONNECT） ==========                    if(key.isConnectable())  
+                    {  
+                        SocketChannel channel=(SocketChannel)key.channel();  
+                        if(channel.isConnectionPending())//非阻塞需要手动finishConnect  
+                        {  
+                            channel.finishConnect(); //完成连接  
+                        }  
+                        System.out.println("连接服务端成功！请输入要发送的消息（输入exit退出）：");  
+                        // 连接成功后，注册OP_WRITE（准备发送数据）  
+                        channel.register(selector, SelectionKey.OP_WRITE);  
+                       // 启动线程读取用户输入（避免阻塞事件循环）  
+                        new Thread(()->{  
+                            try(Scanner scanner=new java.util.Scanner(System.in))  
+                            {  
+                                while(true)  
+                                {  
+                                    String message=scanner.nextLine();  
+                                    if("exit".equalsIgnoreCase(message))  
+                                    {  
+                                        channel.close();  
+                                        System.out.println("客户端已退出。");  
+                                        System.exit(0);  
+                                    }  
+                                    //将用户输入附加到SelectionKey，以便在写事件中发送  
+                                    key.attach(ByteBuffer.wrap(message.getBytes()));  
+                                    //唤醒选择器以处理写事件  
+                                    selector.wakeup();  
+                                }  
+                            }catch (IOException e)  
+                            {  
+                                e.printStackTrace();  
+                            }  
+                        }).start();  
+                    }  
+  
+                    // ========== 处理写事件（OP_WRITE，发送数据） ==========                    else if(key.isWritable())  
+                    {  
+                        SocketChannel channel=(SocketChannel)key.channel();  
+                        //从附件获取要发送的数据  
+                        ByteBuffer buffer=(ByteBuffer)key.attachment();  
+                        if(buffer!=null)  
+                        {  
+                            channel.write(buffer);  
+                            if(!buffer.hasRemaining())  
+                            {  
+                                //发送完成，清除附件  
+                                key.attach(null);  
+                                //切换回读模式，等待服务器响应  
+                                channel.register(selector, SelectionKey.OP_READ);  
+                            }  
+                        }  
+                    }  
+  
+                    // ========== 处理读事件（OP_READ，接收服务端响应） ==========                    else if(key.isReadable())  
+                    {  
+                        SocketChannel channel=(SocketChannel)key.channel();  
+                        ByteBuffer buffer=ByteBuffer.allocate(1024);  
+                        // 读取服务端的响应数据  
+                        int bytesRead=channel.read(buffer);  
+                        if(bytesRead>0)  
+                        {  
+                            buffer.flip();  
+                            byte[] data=new byte[buffer.remaining()];  
+                            buffer.get(data);  
+                            String response=new String(data);  
+                            System.out.println("收到服务端响应："+response);  
+                            //切换回写模式，准备发送下一条消息  
+                            key.interestOps(SelectionKey.OP_WRITE);  
+                        }else if(bytesRead==-1) {  
+                            //服务端关闭连接  
+                            System.out.println("服务端已关闭连接。");  
+                            channel.close();  
+                        }  
+                    }  
+                }  
+            }  
+        }catch (IOException e)  
+        {  
+            e.printStackTrace();  
+        }  
+    }  
+}
+```
