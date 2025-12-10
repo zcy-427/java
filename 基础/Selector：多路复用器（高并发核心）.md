@@ -59,5 +59,114 @@ Selector（多路复用器）是**Java NIO（Non-Blocking IO）** 实现 IO 多
 
  NIO 服务端示例，完整展示 Selector 的使用：
 ```java
-
+import java.io.IOException;  
+import java.net.InetSocketAddress;  
+import java.nio.channels.SelectionKey;  
+import java.nio.channels.Selector;  
+import java.nio.channels.ServerSocketChannel;  
+import java.nio.channels.SocketChannel;  
+import java.nio.ByteBuffer;  
+import java.util.Iterator;  
+import java.util.Set;  
+  
+public class Selector_Server {  
+    public static void main(String[] args) {  
+  
+        try(Selector selector=Selector.open();)//创建Selector)  
+        {  
+            //创建ServerSocketChannel  
+            ServerSocketChannel serverSocketChannel=ServerSocketChannel.open();  
+            //将ServerSocketChannel配置为阻塞模式  
+            serverSocketChannel.configureBlocking(true);  
+            //绑定端口  
+            serverSocketChannel.bind(new InetSocketAddress(8080));  
+            //将ServerSocketChannel注册到Selector，并监听8080端口，监控 “是否有客户端发起连接请求”，这是服务端的第一步 —— 没有连接，后续的读写都不存在。  
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);  
+            //事件循环（核心）  
+            while(true)  
+            {  
+                // 阻塞等待就绪事件（返回就绪的事件数）  
+                int readyChannels = selector.select();  
+                if (readyChannels == 0) {  
+                    continue; // 无就绪事件，继续循环  
+                }  
+  
+                //获取就绪的SelectionKey集合  
+                Set<SelectionKey> selectedKeys = selector.selectedKeys();  
+                //获取集合的迭代器  
+                Iterator<SelectionKey> keyIterator = selectedKeys.iterator();  
+  
+                //遍历处理每一个事件  
+                while (keyIterator.hasNext())  
+                {  
+                    SelectionKey key = keyIterator.next();  
+                    // ========== 处理新连接事件（OP_ACCEPT） ==========                    
+                    if(key.isAcceptable())  
+                    {  
+                        //拿到ServerSocketChannel实例，调用其 accept() 方法，接受客户端的新连接（生成与客户端通信的 SocketChannel），完成 “监听连接→接受连接” 的衔接。  
+                        ServerSocketChannel socketChannel = (ServerSocketChannel) key.channel();  
+                        SocketChannel clientChannel = socketChannel.accept();  
+                        //配置为非阻塞模式  
+                        clientChannel.configureBlocking(false);  
+                        System.out.println("New client connected: " + clientChannel.getRemoteAddress());  
+  
+                        // 将新连接的SocketChannel注册到Selector，关注OP_READ事件，绑定ByteBuffer作为附件  
+                        socketChannel.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1024));  
+                    }  
+                    // ========== 处理读事件（OP_READ） ==========                    
+                    else if (key.isReadable())  
+                    {  
+                        SocketChannel clientChannel = (SocketChannel) key.channel();  
+                        //获取绑定的附件  
+                        ByteBuffer buffer = (ByteBuffer) key.attachment();  
+  
+                        // 读取数据（非阻塞，返回读取的字节数）  
+                        int readBytes = clientChannel.read(buffer);  
+  
+                        if (readBytes == -1) {  
+                            // 客户端关闭连接  
+                            System.out.println("Client disconnected: " + clientChannel.getRemoteAddress());  
+                            key.cancel(); // 取消注册  
+                            clientChannel.close();  
+                            continue;  
+                        }  
+  
+                        if(readBytes>0)  
+                        {  
+                            buffer.flip(); // 切换到读模式  
+                            byte[] data = new byte[buffer.limit()];  
+                            buffer.get(data);  
+                            String receivedString = new String(data);  
+                            System.out.println("Received from client: " + receivedString);  
+                            // 响应客户端（注册OP_WRITE事件，准备写回数据）  
+                            clientChannel.register(selector, SelectionKey.OP_WRITE, ByteBuffer.wrap(("Echo: " + receivedString).getBytes()));  
+                        }  
+                    }  
+                    // ========== 处理写事件（OP_WRITE） ==========                   
+                    else if (key.isWritable())  
+                    {  
+                        SocketChannel socketChannel = (SocketChannel) key.channel();  
+                        ByteBuffer buffer = (ByteBuffer) key.attachment();  
+  
+                        // 写回数据（非阻塞）  
+                        socketChannel.write(buffer);  
+  
+                        // 写完后取消OP_WRITE（否则会一直触发写事件）  
+                        if (!buffer.hasRemaining()) {  
+                            key.interestOps(SelectionKey.OP_READ); // 重新关注读事件  
+                            buffer.clear(); // 清空缓冲区  
+                        }  
+                    }  
+  
+                    // ========== 关键：移除已处理的Key ==========  
+                    // selectedKeys是复用的集合，不remove会导致下次循环重复处理  
+                    keyIterator.remove();  
+                }  
+            }  
+        }catch (IOException e)  
+        {  
+            e.printStackTrace();  
+        }  
+    }  
+}
 ```
