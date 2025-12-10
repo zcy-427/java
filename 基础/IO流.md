@@ -288,13 +288,12 @@ public class FileChnannel_demo {
     }  
 }
 ```
-**3.Selector：多路复用器（高并发核心）**
+
+3.[Selector：多路复用器（高并发核心）](Selector：多路复用器（高并发核心）.md)
 
 允许**一个线程管理多个 Channel**，仅处理 “就绪” 的 Channel，解决 BIO 线程阻塞问题。
 
 - [x] Selector待定 ✅ 2025-12-10
-
-
 
 ### NIO.2（JDK7+）：现代文件 IO 主力（Path+Files）
 
