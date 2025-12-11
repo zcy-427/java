@@ -258,3 +258,41 @@ Stream<String> parallelStream2 = list.stream().parallel();
 **底层原理**：
 
 并行流基于 **Fork/Join 框架**，默认使用 `ForkJoinPool.commonPool()`（公共线程池），核心是 “分而治之”：将数据源拆分为多个子任务，并行处理后合并结果。
+
+## Stream 注意事项
+
+1.**流只能消费一次**：终端操作后流关闭，再次调用会抛 `IllegalStateException`；
+```java
+Stream<String> stream = list.stream(); 
+stream.count(); // 终端操作，流关闭 
+stream.forEach(System.out::println); // 抛出异常！
+```
+
+2.**懒加载的坑**：仅定义中间操作不会执行任何逻辑，必须触发终端操作；
+```java
+// 以下代码无输出（无终端操作）
+list.stream().filter(s -> {
+    System.out.println("过滤：" + s);
+    return s.length() > 5;
+});
+```
+
+3.**避免副作用**：Lambda 表达式应保持 “纯函数”（无外部状态修改），尤其是并行流；
+```java
+/ 错误示例：并行流中修改非线程安全的List（结果不可预测）
+List<String> result = new ArrayList<>();
+list.parallelStream().forEach(result::add);
+
+// 正确示例：用collect收集
+List<String> result = list.parallelStream().collect(Collectors.toList());
+```
+
+4.**[[Optional]] 处理**：终端操作返回 Optional 时，需避免空指针（推荐使用 `orElse`/`orElseGet`/`orElseThrow`）；
+```java
+// 安全处理空值
+String str = list.stream().findFirst().orElse("default");
+String str2 = list.stream().findFirst().orElseThrow(() -> new RuntimeException("无元素"));
+```
+
+
+
