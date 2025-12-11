@@ -59,3 +59,9 @@ Stream<Double> randomStream = Stream.generate(Math::random).limit(5); // 5个随
 Stream<Integer> numStream = Stream.iterate(1, n -> n + 2).limit(5); // 1,3,5,7,9
 ```
 
+### 5. 其他特殊方式
+
+- 从文件创建：`Files.lines(Path path)` 读取文件每行内容为 Stream：
+```java
+
+```
