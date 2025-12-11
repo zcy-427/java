@@ -372,3 +372,79 @@ public class Stream_use {
 }
 ```
 
+这里主要是要理解 `collect(Collectors.groupingBy(...))`这一段
+
+`groupingBy()`的**第一个参数**是分组维度，这里是`User::getGender`，**第二个参数**是 “下游收集器”—— 默认情况下，分组后每个 Key 对应的值是 `List<User>`（比如 “男” 对应 `[张三, 钱七]`），但这里我们需要**自定义聚合逻辑**（计算总年龄、人数、拼接用户名），因此用 `Collectors.of` 创建自定义 Collector。
+
+`Collectors.of(supplier, accumulator, combiner, finisher)` 是创建自定义 Collector 的核心方法，四个参数分别对应 Collector 接口的四个核心能力，缺一不可：
+
+| 参数序号 | 参数类型              | 代码实现                           | 核心作用                             |
+| ---- | ----------------- | ------------------------------ | -------------------------------- |
+| 1    | Supplier<R>       | `HashMap::new`                 | 为每个分组初始化一个**临时容器**（存储聚合过程中的中间数据） |
+| 2    | BiConsumer<R, T>  | `(map, user) -> { ... }`（累加器）  | 把分组内的**每个用户数据累加到临时容器**           |
+| 3    | BinaryOperator<R> | `(map1, map2) -> { ... }`（组合器） | 并行流场景下，合并多个分片的临时容器（串行流不会触发）      |
+| 4    | Function<R, RR>   | `map -> { ... }`（完成器）          | 把临时容器的中间数据**转换为最终结果格式**          |
+
+`Supplier`：
+```java
+// 初始化容器（HashMap）
+HashMap::new
+```
+为每个性别分组创建一个空的 `HashMap` 作为 “临时聚合容器”，用于存储：
+
+`Accumulator`（累加器，核心聚合逻辑）
+```java
+// 累加器：计算总年龄、收集用户名
+(map, user) -> {
+    // 累计年龄：先取当前totalAge（默认0），加上当前用户年龄
+    map.put("totalAge", (int) map.getOrDefault("totalAge", 0) + user.getAge());
+    // 累计人数：先取当前count（默认0），加1
+    map.put("count", (int) map.getOrDefault("count", 0) + 1);
+    // 收集用户名：先取names列表（默认空List），添加当前用户名
+    List<String> names = (List<String>) map.getOrDefault("names", new ArrayList<>());
+    names.add(user.getName());
+    map.put("names", names);
+}
+```
+`map.getOrDefault(key, defaultValue)` 避免空指针（第一次累加时，容器里没有 `totalAge`/`count`/`names`，用默认值兜底）。
+
+`Combiner`（组合器，并行流专用）
+```java
+/ 组合器（并行流时合并容器）
+(map1, map2) -> {
+    map1.put("totalAge", (int) map1.get("totalAge") + (int) map2.get("totalAge"));
+    map1.put("count", (int) map1.get("count") + (int) map2.get("count"));
+    List<String> names = (List<String>) map1.get("names");
+    names.addAll((List<String>) map2.get("names"));
+    map1.put("names", names);
+    // 注意：原代码缺少 return map1; 会编译失败！
+}
+```
+并行流会把一个分组的用户拆成多个分片（比如男组拆成 [张三]、[钱七] 两个分片），每个分片独立用 `supplier` 初始化容器、`accumulator` 累加，最后用 `combiner` 合并分片容器；
+
+`Finisher`（完成器，转换最终结果）
+```java
+// 最终转换：计算平均年龄，拼接用户名
+map -> {
+    Map<String, Object> finalMap = new HashMap<>();
+    // 总年龄 / 人数 = 平均年龄（整数除法）
+    finalMap.put("avgAge", (int) map.get("totalAge") / (int) map.get("count"));
+    // 用户名列表拼接为字符串（用逗号分隔）
+    finalMap.put("userNames", String.join(",", (List<String>) map.get("names")));
+    return finalMap;
+}
+```
+经过上述步骤，`groupingBy` 会把每个性别的最终结果整合为外层 Map：
+
+```java
+{
+    "男": {
+        "avgAge": 21,
+        "userNames": "张三,钱七"
+    },
+    "女": {
+        "avgAge": 27,
+        "userNames": "王五,赵六"
+	    }
+}
+```
