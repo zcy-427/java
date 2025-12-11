@@ -164,7 +164,97 @@ Collector<T, ?, Map<K,U>> toMap(Function<? super T, ? extends K> keyMapper,
     return toMap(keyMapper, valueMapper, mergeFunction, HashMap::new);  
 }
 ```
-keyMapper:用于将流中的每个元素映射为 Map 的键。例如，Person::getName 可以将 Person 对象映射为其名称。
-valueMapper: 用于将流中的每个元素映射为 Map 的值。例如，Person::getAddress 可以将 Person 对象映射为其地址。
-mergeFunction: 用于处理键冲突时的值合并逻辑。如果两个元素映射到相同的键，mergeFunction 决定如何合并它们的值。
-HashMap::new:是一个工厂方法，指定生成的 Map 类型为 HashMap。这意味着最终的 Map 是一个可变的 HashMap。
+1. keyMapper:用于将流中的每个元素映射为 Map 的键。例如，Person::getName 可以将 Person 对象映射为其名称。
+2. valueMapper: 用于将流中的每个元素映射为 Map 的值。例如，Person::getAddress 可以将 Person 对象映射为其地址。
+3. mergeFunction: 用于处理键冲突时的值合并逻辑。如果两个元素映射到相同的键，mergeFunction 决定如何合并它们的值。
+4. HashMap::new:是一个工厂方法，指定生成的 Map 类型为 HashMap。这意味着最终的 Map 是一个可变的 HashMap。
+示例：
+```java
+Map<String, String> phoneBook = people.stream()  
+    .collect(toMap(Person::getName, Person::getAddress, (s, a) -> s + ", " + a));
+```
+在这个例子中，，toMap 将 Person 对象的名称作为键，地址作为值。如果有重复的名称，地址会通过逗号连接合并。
+
+### 3. 字符串拼接
+
+```java
+// 直接拼接：applebananacherry
+String join1 = list.stream().collect(Collectors.joining());
+// 分隔符拼接：apple,banana,cherry
+String join2 = list.stream().collect(Collectors.joining(","));
+// 带前缀/后缀：[apple,banana,cherry]
+String join3 = list.stream().collect(Collectors.joining(",", "[", "]"));
+```
+
+### 4. 分组（groupingBy）
+
+按指定维度分组，返回 `Map<K, List<T>>`，支持多级分组：
+
+```java
+// 按长度分组：{5=[apple], 6=[banana, cherry]}
+Map<Integer, List<String>> groupByLength = list.stream()
+    .collect(Collectors.groupingBy(String::length));
+
+// 多级分组：先按长度，再按首字母
+Map<Integer, Map<Character, List<String>>> multiGroup = list.stream()
+    .collect(Collectors.groupingBy(
+        String::length,
+        Collectors.groupingBy(s -> s.charAt(0))
+    ));
+```
+
+### 5. 分区（partitioningBy）
+
+特殊分组（仅两个 Key：true/false），适合二分类场景：
+
+```java
+// 按长度是否>5分区：{false=[apple], true=[banana, cherry]}
+Map<Boolean, List<String>> partition = list.stream()
+    .collect(Collectors.partitioningBy(s -> s.length() > 5));
+```
+
+### 6. 聚合计算
+
+```java
+// 求和（int类型）
+int sum = list.stream().collect(Collectors.summingInt(String::length));
+// 平均值
+double avg = list.stream().collect(Collectors.averagingInt(String::length));
+// 最大值（Optional）
+Optional<String> max = list.stream().collect(Collectors.maxBy(Comparator.comparing(String::length)));
+```
+
+## 基本类型流（IntStream/LongStream/DoubleStream）
+
+为避免自动装箱 / 拆箱的性能损耗，Java 提供了针对基本类型的专用流：
+
+- `IntStream`：处理 int、byte、short、char
+- `LongStream`：处理 long
+- `DoubleStream`：处理 double、float
+
+```java
+// 1. 直接生成范围流（无需装箱）
+int sum = IntStream.rangeClosed(1, 100).sum(); // 1到100求和（5050）
+
+// 2. 从Stream<Integer>转换为IntStream（避免装箱）
+Stream<Integer> numStream = Stream.of(1,2,3);
+IntStream intStream = numStream.mapToInt(Integer::intValue);
+
+// 3. 聚合操作（专用方法）
+DoubleStream doubleStream = DoubleStream.of(1.1, 2.2, 3.3);
+OptionalDouble avg = doubleStream.average(); // 平均值（2.2）
+```
+
+## 并行流（Parallel Stream）
+
+创建：
+```java
+// 方式1：从集合创建
+Stream<String> parallelStream1 = list.parallelStream();
+
+// 方式2：将串行流转为并行流
+Stream<String> parallelStream2 = list.stream().parallel();
+```
+**底层原理**：
+
+并行流基于 **Fork/Join 框架**，默认使用 `ForkJoinPool.commonPool()`（公共线程池），核心是 “分而治之”：将数据源拆分为多个子任务，并行处理后合并结果。
