@@ -63,5 +63,58 @@ Stream<Integer> numStream = Stream.iterate(1, n -> n + 2).limit(5); // 1,3,5,7,9
 
 - 从文件创建：`Files.lines(Path path)` 读取文件每行内容为 Stream：
 ```java
-
+try {  
+    Stream<String> fileStream = Files.lines(Paths.get("C:\\Users\\zcy\\Desktop\\test.txt"), StandardCharsets.UTF_8);  
+    fileStream.forEach(System.out::println);  
+}catch (IOException e)  
+{  
+    e.printStackTrace();  
+}
 ```
+
+- 基本类型范围流：`IntStream.range()`/`rangeClosed()`（LongStream/DoubleStream 同理）
+```java
+IntStream rangeStream = IntStream.range(1, 5); // 1,2,3,4（左闭右开）
+IntStream rangeClosedStream = IntStream.rangeClosed(1, 5); // 1,2,3,4,5（左闭右闭）
+```
+
+## Stream 的操作
+
+Stream 操作分为两类：**中间操作**（构建流水线）和 **终端操作**（触发执行并返回结果）。
+
+### 1. 中间操作（Intermediate）
+
+返回新的 Stream，**懒执行**（仅记录操作，不实际处理数据），分为：
+
+- **无状态操作**：操作不依赖其他元素（如 filter、map），并行处理效率高；
+- **有状态操作**：操作依赖其他元素（如 sorted、distinct），需缓存元素，并行成本高。
+
+| 操作方法                            | 作用                                    | 示例（以 List<String> list = Arrays.asList ("apple", "banana", "cherry") 为例）   |
+| ------------------------------- | ------------------------------------- | -------------------------------------------------------------------------- |
+| `filter(Predicate)`             | 过滤满足条件的元素                             | `list.stream().filter(s -> s.length() > 5)` // 保留长度 > 5 的元素（banana、cherry） |
+| `map(Function)`                 | 元素一对一转换（类型 / 值）                       | `list.stream().map(String::toUpperCase)` // 转大写（APPLE、BANANA、CHERRY）       |
+| `flatMap(Function)`             | 元素一对多转换（将每个元素转为 Stream，再合并为一个 Stream） | `list.stream().flatMap(s -> Stream.of(s.split("")))` // 拆分为单个字符流           |
+| `peek(Consumer)`                | 遍历元素（调试用，不修改元素）                       | `list.stream().peek(System.out::println).count()` // 打印元素并计数               |
+| `distinct()`                    | 去重（基于 equals ()）                      | `Stream.of(1,2,2,3).distinct()` // 1,2,3                                   |
+| `sorted()`/`sorted(Comparator)` | 自然排序 / 自定义排序                          | `list.stream().sorted(Comparator.comparing(String::length))` // 按长度排序      |
+| `limit(long n)`                 | 截取前 n 个元素（短路操作）                       | `list.stream().limit(2)` // apple、banana                                   |
+| `skip(long n)`                  | 跳过前 n 个元素                             | `list.stream().skip(1) // banana、cherry`                                   |
+### 2. 终端操作（Terminal）
+
+触发流的执行，返回非 Stream 类型结果，流执行后关闭。分为：
+
+- **非短路操作**：需处理所有元素（如 collect、forEach）；
+- **短路操作**：无需处理所有元素（如 findFirst、anyMatch），提升效率。
+
+| 操作方法                      | 作用                         | 示例                                                                  |
+| ------------------------- | -------------------------- | ------------------------------------------------------------------- |
+| `forEach(Consumer)`       | 遍历元素（无返回值）                 | `list.stream().forEach(System.out::println)` // 打印所有元素              |
+| `collect(Collector)`      | 收集元素到集合 / 自定义结构（核心操作）      | `list.stream().collect(Collectors.toList())` // 收集为 List            |
+| `reduce()`                | 归约：将元素合并为单个值               | `Stream.of(1,2,3).reduce(0, Integer::sum)` // 求和（结果 6）              |
+| `count()`                 | 返回元素个数（long 类型）            | `list.stream().count()` // 3                                        |
+| `max(Comparator)`/`min()` | 返回最大 / 最小元素（Optional<T>）   | `list.stream().max(Comparator.comparing(String::length))` // cherry |
+| `anyMatch(Predicate)`     | 是否存在满足条件的元素（boolean）       | `list.stream().anyMatch(s -> s.startsWith("a"))` // true            |
+| `allMatch(Predicate)`     | 是否所有元素满足条件（boolean）        | `list.stream().allMatch(s -> s.length() > 3)` // true               |
+| `noneMatch(Predicate)`    | 是否无元素满足条件（boolean）         | `list.stream().noneMatch(s -> s.isEmpty())` // true                 |
+| `findFirst()`             | 返回第一个元素（Optional<T>，串行流稳定） | `list.stream().findFirst()` // Optional[apple]                      |
+| `findAny()`               | 返回任意元素（Optional<T>，并行流效率高） | `list.parallelStream().findAny()` // 可能返回任意元素                       |
