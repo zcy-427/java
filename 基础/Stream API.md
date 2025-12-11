@@ -144,3 +144,27 @@ Set<String> set = stream.collect(Collectors.toSet()); // 默认为HashSet
 LinkedList<String> linkedList = stream.collect(Collectors.toCollection(LinkedList::new));
 ```
 
+### 2. 转 Map
+
+注意重复 Key 会抛出 `IllegalStateException`，需指定冲突处理规则：
+```java
+Map<String, Integer> map = list.stream()  
+        .collect(Collectors.toMap(  
+                s -> s,                // Key生成器  
+                String::length,        // Value生成器  
+                (v1, v2) -> v1         // 重复Key时保留旧值  
+        ));
+```
+toMap的源码如下：
+```Java
+public static <T, K, U>  
+Collector<T, ?, Map<K,U>> toMap(Function<? super T, ? extends K> keyMapper,  
+                                Function<? super T, ? extends U> valueMapper,  
+                                BinaryOperator<U> mergeFunction) {  
+    return toMap(keyMapper, valueMapper, mergeFunction, HashMap::new);  
+}
+```
+keyMapper:用于将流中的每个元素映射为 Map 的键。例如，Person::getName 可以将 Person 对象映射为其名称。
+valueMapper: 用于将流中的每个元素映射为 Map 的值。例如，Person::getAddress 可以将 Person 对象映射为其地址。
+mergeFunction: 用于处理键冲突时的值合并逻辑。如果两个元素映射到相同的键，mergeFunction 决定如何合并它们的值。
+HashMap::new:是一个工厂方法，指定生成的 Map 类型为 HashMap。这意味着最终的 Map 是一个可变的 HashMap。
