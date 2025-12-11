@@ -294,5 +294,81 @@ String str = list.stream().findFirst().orElse("default");
 String str2 = list.stream().findFirst().orElseThrow(() -> new RuntimeException("无元素"));
 ```
 
+## 综合示例
+需求：处理用户列表，过滤年龄≥18 的用户，按性别分组，统计每组的平均年龄，并拼接每组的用户名。
 
+```java
+import java.util.*;  
+import java.util.stream.Collectors;  
+import java.util.stream.Collector;  
+// 定义用户类  
+class User {  
+    private String name;  
+    private int age;  
+    private String gender;  
+  
+    // 构造器、getter/setter省略  
+    public User(String name, int age, String gender) {  
+        this.name = name;  
+        this.age = age;  
+        this.gender = gender;  
+    }  
+  
+    // getter  
+    public String getName() { return name; }  
+    public int getAge() { return age; }  
+    public String getGender() { return gender; }  
+}  
+//处理用户列表，过滤年龄≥18 的用户，按性别分组，统计每组的平均年龄，并拼接每组的用户名。  
+public class Stream_use {  
+    public static void main(String[] args) {  
+        List<User> users = Arrays.asList(  
+                new User("张三", 20, "男"),  
+                new User("李四", 17, "男"),  
+                new User("王五", 25, "女"),  
+                new User("赵六", 30, "女"),  
+                new User("钱七", 22, "男")  
+        );  
+  
+        Map<String,Map<String,Object>> result =users.stream()  
+                // 过滤年龄≥18  
+                .filter(age -> age.getAge() >= 18)  
+                // 按性别分组  
+                .collect(Collectors.groupingBy(  
+                        User::getGender,  
+                       // 统计每组的平均年龄和拼接用户名  
+                        Collector.of(HashMap::new,  
+                                (map,User)->  
+                                {  
+                                    // 累计年龄  
+                                    map.put("totalAge", (int) map.getOrDefault("totalAge", 0) + User.getAge());  
+                                    // 累计人数  
+                                    map.put("count", (int) map.getOrDefault("count", 0) + 1);  
+                                    // 收集用户名  
+                                    List<String> names = (List<String>) map.getOrDefault("names", new ArrayList<>());  
+                                    names.add(User.getName());  
+                                    map.put("names", names);  
+                                },  
+                                // 组合器（并行流时合并容器）  
+                                (map1, map2) -> {  
+                                    map1.put("totalAge", (int) map1.get("totalAge") + (int) map2.get("totalAge"));  
+                                    map1.put("count", (int) map1.get("count") + (int) map2.get("count"));  
+                                    List<String> names = (List<String>) map1.get("names");  
+                                    names.addAll((List<String>) map2.get("names"));  
+                                    map1.put("names", names);  
+                                    return map1;  
+                                },  
+                                // 最终转换：计算平均年龄，拼接用户名  
+                                map -> {  
+                                    Map<String, Object> finalMap = new HashMap<>();  
+                                    finalMap.put("avgAge", (int) map.get("totalAge") / (int) map.get("count"));  
+                                    finalMap.put("userNames", String.join(",", (List<String>) map.get("names")));  
+                                    return finalMap;  
+                                })  
+                        )  
+                );  
+        result.forEach((gender, data) -> System.out.println(gender + "：" + data));  
+    }  
+}
+```
 
