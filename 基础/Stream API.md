@@ -118,3 +118,20 @@ Stream 操作分为两类：**中间操作**（构建流水线）和 **终端�
 | `noneMatch(Predicate)`    | 是否无元素满足条件（boolean）         | `list.stream().noneMatch(s -> s.isEmpty())` // true                 |
 | `findFirst()`             | 返回第一个元素（Optional<T>，串行流稳定） | `list.stream().findFirst()` // Optional[apple]                      |
 | `findAny()`               | 返回任意元素（Optional<T>，并行流效率高） | `list.parallelStream().findAny()` // 可能返回任意元素                       |
+`reduce` 有三种重载，适配不同场景：
+
+```java
+// 1. 无初始值（返回Optional<T>，避免空流）
+Optional<Integer> sum1 = Stream.of(1,2,3).reduce(Integer::sum);
+
+// 2. 有初始值（返回T，空流返回初始值）
+Integer sum2 = Stream.of(1,2,3).reduce(0, Integer::sum);
+
+// 3. 并行流优化（初始值+累加器+组合器）
+Integer sum3 = Stream.of(1,2,3).parallel().reduce(0, (a,b)->a+b, (a,b)->a+b);
+```
+
+## 核心工具：Collector 收集器
+
+`collect()` 依赖 `Collector` 接口，`java.util.stream.Collectors` 提供了大量静态工具方法，满足常见收集需求。
+
