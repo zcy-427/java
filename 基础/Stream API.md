@@ -15,9 +15,47 @@ Stream（流）不是数据结构，而是**对数据源的操作序列**，核�
 ## 如何创建Stream
 
 ### 1. 从集合创建（最常用）
-
 所有 `Collection` 接口的实现类（List、Set、Queue 等）都提供 `stream()`（串行流）和 `parallelStream()`（并行流）方法：
 
 ```JAVA
-
+List<String> list= Arrays.asList("a","b","c");  
+//串行流  
+Stream<String> stream1=list.stream();  
+// 并行流  
+Stream<String> parallelStream = list.parallelStream();  
 ```
+
+### 2. 从数组创建
+通过 `Arrays.stream()` 或 `Stream.of()`（底层调用 `Arrays.stream()`）创建：
+
+```java
+// 方式1：Arrays.stream  
+String[] arr = {"x", "y", "z"};  
+Stream<String> arrStream = Arrays.stream(arr);  
+  
+// 方式2：Stream.of（支持可变参数）  
+Stream<String> ofStream = Stream.of("1", "2", "3");  
+  
+// 基本类型数组（用IntStream而非Stream<Integer>避免自动装箱）  
+int[] intArr = {1, 2, 3};  
+IntStream intStream = Arrays.stream(intArr);
+```
+
+### 3. 创建空流
+用于避免空指针，返回空的 Stream：
+
+```java
+Stream<String> emptyStream = Stream.empty();
+```
+
+### 4. 创建无限流
+通过 `generate()`（生成器）或 `iterate()`（迭代器）创建，需配合 `limit()` 限制元素数量：
+
+```java
+// 1. generate：基于Supplier生成无限流（元素无规律）
+Stream<Double> randomStream = Stream.generate(Math::random).limit(5); // 5个随机数
+
+// 2. iterate：基于种子值迭代生成（元素有规律）
+Stream<Integer> numStream = Stream.iterate(1, n -> n + 2).limit(5); // 1,3,5,7,9
+```
+
