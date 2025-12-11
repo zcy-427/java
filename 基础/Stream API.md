@@ -135,3 +135,12 @@ Integer sum3 = Stream.of(1,2,3).parallel().reduce(0, (a,b)->a+b, (a,b)->a+b);
 
 `collect()` 依赖 `Collector` 接口，`java.util.stream.Collectors` 提供了大量静态工具方法，满足常见收集需求。
 
+### 1. 基础收集：转集合
+
+```java
+List<String> list = stream.collect(Collectors.toList()); // 默认为ArrayList
+Set<String> set = stream.collect(Collectors.toSet()); // 默认为HashSet
+// 自定义集合（如LinkedList）
+LinkedList<String> linkedList = stream.collect(Collectors.toCollection(LinkedList::new));
+```
+
