@@ -36,28 +36,3 @@
 - 日志框架：Logback、Log4j2、SLF4J、TinyLog
 
 
-
-这段代码的核心是**因 `map` 方法的特性，导致 Optional 嵌套（`Optional<Optional<String>>`）**，具体解析如下：
-
-1. **第一步：`Optional.of(user)`**
-    
-    先将非 null 的 `user` 包装成 `Optional<User>`（外层 Optional，值为 User 对象）。
-    
-2. **第二步：`.map(User::getAddress)`**
-    
-    `map` 会对 Optional 中的值（这里是 User 对象）执行映射：
-    
-    调用 `user.getAddress()`，而该方法返回的是 `Optional<Address>`（根据代码中 User 类的定义）。
-    
-    因此，映射后得到 **`Optional<Optional<Address>>`**（外层 Optional 包裹内层 Optional<Address>）。
-    
-3. **第三步：.map(addr -> Optional.ofNullable(addr.getCity()))** 
-    
-    此时 `map` 处理的是上一步结果中的 “内层值”—— 也就是 `Optional<Address>` 里的 `Address` 对象（`addr` 即 Address 实例）。
-    
-    调用 `addr.getCity()` 得到 String 类型的城市（可能为 null），再用 `Optional.ofNullable` 包装成 `Optional<String>`。
-    
-    最终，整个链式调用的结果就成了 **`Optional<Optional<String>>`**（外层 Optional 包裹内层 Optional<String>），即代码中的 `nestedOpt`。
-    
-
-简单说：`map` 会把 “映射结果” 重新包装成 Optional，若映射结果本身已是 Optional，就会形成 “Optional 套 Optional” 的嵌套结构。
