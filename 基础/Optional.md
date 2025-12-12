@@ -220,10 +220,8 @@ System.out.println(cityOpt.get()); // Beijing
     最终，整个链式调用的结果就成了Optional<Optional<String>>（外层 Optional 包裹内层 Optional<String>），即代码中的 nestedOpt。
 
 对于**flatmap**：
-
-
-
-
+其主要区别于**map**的在于第2步，`flatMap` 的核心是 **“映射 + 扁平化”**：
+`flatMap` 不会把 `Optional<Address>` 再包装一层（即不会得到 `Optional<Optional<Address>>`），而是直接返回这个 `Optional<Address>`（“扁平化”）。
 
 #### `filter(Predicate<? super T> predicate)`
 过滤值：
