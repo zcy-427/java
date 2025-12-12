@@ -110,3 +110,47 @@ opt.ifPresentOrElse(
     () -> System.out.println("值不存在")
 ); // 输出：值不存在
 ```
+
+### 4.空值兜底（推荐）
+
+#### `orElse(T other)`
+- 若值存在 → 返回值；
+- 若为空 → 返回 `other`（**注意：other 始终会被创建，即使值存在**）。
+
+```java
+Optional<String> opt = Optional.of("hello");
+System.out.println(opt.orElse("default")); // hello
+
+Optional<String> emptyOpt = Optional.empty();
+System.out.println(emptyOpt.orElse("default")); // default
+
+// 副作用示例：even if opt has value, "new String()" is still created
+String result = opt.orElse(new String("default"));
+```
+#### `orElseGet(Supplier<? extends T> supplier)`
+- 若值存在 → 返回值；
+- 若为空 → 执行 `supplier` 并返回结果（**仅当值为空时才执行 supplier，性能更优**）。
+
+```java
+Optional<String> emptyOpt = Optional.empty();
+String result = emptyOpt.orElseGet(() -> {
+    // 仅为空时执行
+    System.out.println("执行兜底逻辑");
+    return "default";
+}); // 输出：执行兜底逻辑，result = default
+
+Optional<String> opt = Optional.of("hello");
+String result2 = opt.orElseGet(() -> "default"); // 无输出，result2 = hello
+```
+#### `orElseThrow(Supplier<? extends X> exceptionSupplier)`
+- 若值存在 → 返回值；
+- 若为空 → 抛出 `exceptionSupplier` 生成的异常（**替代手动判空抛异常**）。
+
+```java
+Optional<String> emptyOpt = Optional.empty();
+// 抛出自定义异常
+String result = emptyOpt.orElseThrow(() -> new IllegalArgumentException("值不能为空"));
+
+// Java 10+ 简化：orElseThrow() 直接抛 NoSuchElementException
+String result2 = emptyOpt.orElseThrow();
+```
