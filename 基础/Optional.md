@@ -221,6 +221,7 @@ System.out.println(cityOpt.get()); // Beijing
 
 对于**flatmap**：
 其主要区别于**map**的在于第2步，`flatMap` 的核心是 **“映射 + 扁平化”**：
+
 `flatMap` 不会把 `Optional<Address>` 再包装一层（即不会得到 `Optional<Optional<Address>>`），而是直接返回这个 `Optional<Address>`（“扁平化”）。
 
 #### `filter(Predicate<? super T> predicate)`
@@ -238,3 +239,75 @@ System.out.println(filteredOpt.get()); // hello
 Optional<String> emptyFilteredOpt = opt.filter(s -> s.length() > 10);
 System.out.println(emptyFilteredOpt.isPresent()); // false
 ```
+
+## 典型使用场景
+
+### 场景 1：替代 null 检查，简化代码
+
+**传统写法**：
+```java
+String userName = null;
+if (user != null) {
+    if (user.getName() != null) {
+        userName = user.getName().toUpperCase();
+    }
+}
+userName = (userName == null) ? "UNKNOWN" : userName;
+```
+
+**Optional 写法**：
+```java
+String userName = Optional.ofNullable(user)
+    .map(User::getName)
+    .map(String::toUpperCase)
+    .orElse("UNKNOWN");
+```
+
+### 场景 2：方法返回值，明确语义
+
+```java
+// 查找用户，不存在则返回空 Optional
+public Optional<User> findUserById(Long id) {
+    User user = userRepository.findById(id);
+    return Optional.ofNullable(user);
+}
+
+// 调用方处理
+findUserById(1L)
+    .ifPresent(u -> System.out.println("找到用户：" + u.getName()));
+```
+
+### 场景 3：链式调用，避免 NPE
+
+```java
+// 获取订单的收货人手机号（订单/收货地址/手机号都可能为 null）
+String phone = Optional.ofNullable(order)
+    .map(Order::getReceiverAddress)
+    .map(Address::getPhone)
+    .orElse("暂无联系方式");
+```
+
+## 常见误区
+
+1.**滥用 `isPresent()` + `get()`**：
+
+```java
+  // 反例：等同于 if (obj != null)，未发挥 Optional 优势
+  if (opt.isPresent()) {
+  doSomething(opt.get());
+}
+  // 正例：使用 ifPresent
+ opt.ifPresent(this::doSomething); 
+```
+
+2.**用 Optional 包装基本类型**：
+
+应使用 `OptionalInt`/`OptionalLong`/`OptionalDouble`，避免自动装箱开销。
+
+3.**将 Optional 作为方法参数**：
+
+会增加调用方复杂度（需创建 Optional），建议直接传值并在方法内判空。
+
+4.**序列化 Optional 字段**：
+
+`Optional` 未实现 `Serializable`，序列化会导致异常，应将字段设为普通类型，返回时包装为 Optional。
