@@ -200,6 +200,30 @@ Optional<String> cityOpt = Optional.of(user)
     .map(Address::getCity);    // 转换为 Optional<String>
 System.out.println(cityOpt.get()); // Beijing
 ```
+这里解释一下上面map与flatmap的工作流程进行一个解析，方便理解
+
+对于**map**：
+1.Optional.of(user)：
+	先将非 null 的 `user` 包装成 `Optional<User>`（外层 Optional，值为 User 对象）
+	
+2..map(User::getAddress)
+	map 会对 Optional 中的值（这里是 User 对象）执行映射：
+    
+    调用 user.getAddress()，而该方法返回的是 Optional<Address>（根据代码中 User 类的定义）。
+    
+    因此，映射后得到Optional<Optional<Address>>（外层 Optional 包裹内层 Optional<Address>）。
+3.map(addr -> Optional.ofNullable(addr.getCity()))
+	此时 map 处理的是上一步结果中的 “内层值”—— 也就是 `Optional<Address>` 里的 `Address` 对象（`addr` 即 Address 实例）。
+    
+    调用 addr.getCity() 得到 String 类型的城市（可能为 null），再用 Optional.ofNullable 包装成 Optional<String>。
+    
+    最终，整个链式调用的结果就成了Optional<Optional<String>>（外层 Optional 包裹内层 Optional<String>），即代码中的 nestedOpt。
+
+对于**flatmap**：
+
+
+
+
 
 #### `filter(Predicate<? super T> predicate)`
 过滤值：
