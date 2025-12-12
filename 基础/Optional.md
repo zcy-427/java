@@ -154,3 +154,65 @@ String result = emptyOpt.orElseThrow(() -> new IllegalArgumentException("值不�
 // Java 10+ 简化：orElseThrow() 直接抛 NoSuchElementException
 String result2 = emptyOpt.orElseThrow();
 ```
+
+### 5.转换与过滤
+
+#### `map(Function<? super T, ? extends U> mapper)`
+对 Optional 中的值执行映射操作：
+- 若值存在 → 执行 `mapper`，返回包装后的 `Optional<U>`；
+- 若为空 → 返回 `Optional.empty()`。
+
+```java
+Optional<String> opt = Optional.of("hello");
+// 转换为长度
+Optional<Integer> lengthOpt = opt.map(String::length);
+System.out.println(lengthOpt.get()); // 5
+
+Optional<String> emptyOpt = Optional.empty();
+Optional<Integer> emptyLengthOpt = emptyOpt.map(String::length);
+System.out.println(emptyLengthOpt.isPresent()); // false
+```
+#### `flatMap(Function<? super T, ? extends Optional<? extends U>> mapper)`
+与 `map` 类似，但 `mapper` 直接返回 `Optional<U>`，避免嵌套 `Optional<Optional<U>>`。
+
+```java
+// 示例：用户 → 地址 → 城市（可能为 null）
+class User {
+    private Optional<Address> address;
+    public Optional<Address> getAddress() { return address; }
+}
+class Address {
+    private String city;
+    public String getCity() { return city; }
+}
+
+User user = new User();
+user.address = Optional.of(new Address() {{ setCity("Beijing"); }});
+
+// 使用 map 会得到 Optional<Optional<String>>
+Optional<Optional<String>> nestedOpt = Optional.of(user)
+    .map(User::getAddress)
+    .map(addr -> Optional.ofNullable(addr.getCity()));
+
+// 使用 flatMap 得到 Optional<String>
+Optional<String> cityOpt = Optional.of(user)
+    .flatMap(User::getAddress) // 直接返回 Optional<Address>
+    .map(Address::getCity);    // 转换为 Optional<String>
+System.out.println(cityOpt.get()); // Beijing
+```
+
+#### `filter(Predicate<? super T> predicate)`
+过滤值：
+- 若值存在且满足 `predicate` → 返回包含该值的 Optional；
+- 若值不存在或不满足 → 返回 `Optional.empty()`。
+
+```java
+Optional<String> opt = Optional.of("hello");
+// 过滤长度>3的值
+Optional<String> filteredOpt = opt.filter(s -> s.length() > 3);
+System.out.println(filteredOpt.get()); // hello
+
+// 过滤长度>10的值
+Optional<String> emptyFilteredOpt = opt.filter(s -> s.length() > 10);
+System.out.println(emptyFilteredOpt.isPresent()); // false
+```
