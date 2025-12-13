@@ -36,3 +36,17 @@
 - 日志框架：Logback、Log4j2、SLF4J、TinyLog
 
 
+1. **`listField.getGenericType();`**
+    
+    - `getGenericType()` ：获取字段的「泛型类型」（而非原始类型 `List.class`），此处返回 `List<String>` 对应的泛型类型实例；
+    - 强制转换为 `ParameterizedType` ：该接口专门用于表示带类型参数的泛型类型（如 `List<String>`、`Map<Integer, String>`），普通类型（如 `String`、`int`）不能转换为此接口。
+2. **`Class<?> genericType = (Class<?>) type.getActualTypeArguments()[0];`**
+    
+    - `getActualTypeArguments()` ：获取泛型的「实际类型参数数组」，此处 `List<String>` 只有一个类型参数 `String`，数组索引 `0` 对应的值即为 `String.class`；
+    - 转换为 `Class<?>` ：得到泛型参数的具体类型对象。
+3. **`System.out.println(genericType);`**
+    
+    - 输出泛型字段 `list` 的实际类型参数，结果为 `class java.lang.String`。
+
+核心目的：突破编译期限制，在运行时动态获取泛型字段（如 `List<String>`）中声明的具体类型（`String`）。
+
