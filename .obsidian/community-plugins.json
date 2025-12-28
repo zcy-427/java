@@ -2,5 +2,7 @@
   "obsidian-git",
   "obsidian-custom-attachment-location",
   "obsidian-enhancing-export",
-  "obsidian-tasks-plugin"
+  "obsidian-tasks-plugin",
+  "templater-obsidian",
+  "file-explorer-note-count"
 ]
