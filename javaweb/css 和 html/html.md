@@ -12,7 +12,8 @@ HTML 不是一堆杂乱的文字，它是一个**树形结构**（Tree Structure
 
 HTML
 ```
-<!DOCTYPE html> <html>
+<!DOCTYPE html> 
+ <html>
     <head>
         <meta charset="UTF-8">
         <title>我的第一个网页</title>
