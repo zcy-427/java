@@ -6,3 +6,33 @@
 
 ## 2.基础结构
 
+HTML 不是一堆杂乱的文字，它是一个**树形结构**（Tree Structure），我们称之为 **DOM (Document Object Model)**。理解这种层级关系对你将来写爬虫或者解析 XML/JSON 非常有帮助。
+
+一个标准的 HTML 页面像这样：
+
+HTML
+```
+<!DOCTYPE html> <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>我的第一个网页</title>
+    </head>
+    <body>
+        <h1>你好，Java导师！</h1>
+        <p>这是一个段落。</p>
+    </body>
+</html>
+```
+
+- **`<html>`**：根节点，包裹所有内容。
+    
+- **`<head>`**：**“大脑”**。存放网页标题、字符集编码（防止乱码，后端常遇到的坑）、引入 CSS/JS 文件的地方。
+    
+- **`<body>`**：**“身体”**。所有可见的按钮、图片、文字都在这里。
+
+
+> [!NOTE] HTML的注释写法
+> <--!
+> 注释内容
+> -->
+
