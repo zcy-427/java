@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "基础/File类.md",
+                "file": "todolist.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "File类"
+              "title": "todolist"
             }
           },
           {
@@ -184,13 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "基础/File类.md",
+                "file": "todolist.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "File类 的大纲"
+              "title": "todolist 的大纲"
             }
           },
           {
@@ -223,8 +223,13 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "a005214190c49c43",
+  "active": "a8ab08880ad3d673",
   "lastOpenFiles": [
+    "javaweb/css 和 html",
+    "javaweb/未命名.md",
+    "todolist.md",
+    "基础/File类.md",
+    "javaweb",
     "基础/Files类.md",
     "基础/IO流.md",
     "基础/lambda.md",
@@ -236,8 +241,6 @@
     "基础/String.md",
     "基础/switch（增强版）.md",
     "基础/WatchService及其相关类.md",
-    "todolist.md",
-    "基础/File类.md",
     "基础/final关键字.md",
     "基础/内部类.md",
     "基础/时间日期API.md",
@@ -249,8 +252,6 @@
     "基础/泛型.md",
     "基础/反射.md",
     "基础/多线程.md",
-    "基础/单例设计模式.md",
-    "基础/Annotation（注解）.md",
     "未命名.canvas",
     "未命名.base",
     "assets/cs",
