@@ -70,3 +70,17 @@ HTML
 	
 - 水平分割线: `<hr />`
 	在页面上画一条横线，表示话题的转换
+	
+- 列表标签
+	- 无序列表 (Unordered List): `<ul>`
+	- 有序列表 (Ordered List): `<ol>`
+		- - `type="A"` -> 显示 A, B, C...
+		- `type="I"` -> 显示罗马数字 I, II, III...
+		- `start="10"` -> 从第 10 开始数。
+	- 定义列表 (Definition List): `<dl>`
+		- `<dl>` (Definition List)：列表容器。
+	    - `<dt>` (Definition Term)：**标题/名字**（Key）。
+	    - `<dd>` (Definition Description)：**描述/值**（Value）。
+	- 子列表 `<ul>` 或 `<ol>` 必须放在父级的 `<li>` 标签**内部**，而不能直接放在 `<ul>` 下面。
+
+
