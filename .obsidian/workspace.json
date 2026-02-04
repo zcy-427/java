@@ -20,21 +20,8 @@
               "icon": "lucide-file",
               "title": "html"
             }
-          },
-          {
-            "id": "a6300552c551c5b3",
-            "type": "leaf",
-            "state": {
-              "type": "vscode-editor",
-              "state": {
-                "file": "My code file.cpp"
-              },
-              "icon": "lucide-file",
-              "title": "My code file"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -169,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "My code file.cpp",
+                "file": "javaweb/css 和 html/html/html.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "My code file 的大纲"
+              "title": "html 的大纲"
             }
           },
           {
@@ -209,10 +196,11 @@
       "vscode-editor:新建代码文件": false
     }
   },
-  "active": "a6300552c551c5b3",
+  "active": "a005214190c49c43",
   "lastOpenFiles": [
-    "javaweb/css 和 html/html/html.md",
     "My code file.cpp",
+    "todolist.md",
+    "javaweb/css 和 html/html/html.md",
     "My code file.java",
     "未命名.base",
     "javaweb/css 和 html/html/代码/超链接.html",
@@ -222,7 +210,6 @@
     "javaweb/css 和 html/html/代码/常见标签_标题段落换行.txt",
     "javaweb/css 和 html/html/代码/新建 文本文档.txt",
     "javaweb/css 和 html/html",
-    "todolist.md",
     "基础/switch（增强版）.md",
     "javaweb/未命名.md",
     "基础/File类.md",
