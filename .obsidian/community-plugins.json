@@ -4,5 +4,6 @@
   "obsidian-enhancing-export",
   "obsidian-tasks-plugin",
   "templater-obsidian",
-  "file-explorer-note-count"
+  "file-explorer-note-count",
+  "vscode-editor"
 ]

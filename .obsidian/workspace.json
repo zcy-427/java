@@ -20,8 +20,21 @@
               "icon": "lucide-file",
               "title": "html"
             }
+          },
+          {
+            "id": "a6300552c551c5b3",
+            "type": "leaf",
+            "state": {
+              "type": "vscode-editor",
+              "state": {
+                "file": "My code file.cpp"
+              },
+              "icon": "lucide-file",
+              "title": "My code file"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +169,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/css 和 html/html/html.md",
+                "file": "My code file.cpp",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "html 的大纲"
+              "title": "My code file 的大纲"
             }
           },
           {
@@ -171,8 +184,8 @@
             "state": {
               "type": "git-view",
               "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "icon": "lucide-ghost",
+              "title": "git-view"
             }
           }
         ],
@@ -190,23 +203,24 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "obsidian-git:Open Git source control": false,
       "switcher:打开快速切换": false,
-      "templater-obsidian:Templater": false
+      "obsidian-git:Open Git source control": false,
+      "templater-obsidian:Templater": false,
+      "vscode-editor:新建代码文件": false
     }
   },
-  "active": "a005214190c49c43",
+  "active": "a6300552c551c5b3",
   "lastOpenFiles": [
-    "未命名.base",
     "javaweb/css 和 html/html/html.md",
+    "My code file.cpp",
+    "My code file.java",
+    "未命名.base",
     "javaweb/css 和 html/html/代码/超链接.html",
     "javaweb/css 和 html/html/代码/常见标签_列表.html",
     "javaweb/css 和 html/html/代码/常见标签_列表",
     "javaweb/css 和 html/html/代码/常见标签_标题段落换行.html",
     "javaweb/css 和 html/html/代码/常见标签_标题段落换行.txt",
     "javaweb/css 和 html/html/代码/新建 文本文档.txt",
-    "javaweb/css 和 html/html",
-    "javaweb/css 和 html/html/代码",
     "javaweb/css 和 html/html",
     "todolist.md",
     "基础/switch（增强版）.md",
