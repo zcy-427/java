@@ -155,3 +155,85 @@ HTML
 - **`colspan`**：**跨列合并**（水平方向）。
     
     - `colspan="3"`：我要占三列的宽度。
+
+## 8.表单标签
+
+### `<form>`
+`<form> </form>`表示这是一个表单容器
+- action表示**目的地**。告诉浏览器，填好的数据要发给后端的哪个接口（URL）。
+- **`method`**：**发送方式**。主要有两种：
+	-  **`GET`**：数据会拼接到 URL 后面（如 `?name=abc`）。**不安全**，且有长度限制。通常用于**搜索**。
+    
+	- **`POST`**：数据放在请求体（Body）里，URL 上看不见。**安全**，无大小限制。通常用于**登录、注册、保存数据**。
+
+### `<input>` 控件
+
+#### 文本输入类
+
+```html
+用户名：<input type="text" name="username" placeholder="请输入账号" />
+
+密 码：<input type="password" name="pwd" />
+```
+
+#### 选择类 (单选/多选)
+
+这里有一个后端经常遇到的坑：**分组**。
+
+- **单选框 (`radio`)**：比如选性别。
+    - **关键点**：一组单选框的 **`name` 必须相同**，否则它们无法互斥（可以同时选男和女）。
+    - **`value`**：必须写！因为用户不输入文字，你需要告诉后端选了这个代表什么值。
+    
+- **复选框 (`checkbox`)**：比如选爱好。
+```HTML
+性别：
+<input type="radio" name="gender" value="male">男
+<input type="radio" name="gender" value="female">女
+
+爱好：
+<input type="checkbox" name="hobby" value="code">写代码
+<input type="checkbox" name="hobby" value="game">打游戏
+```
+
+#### 功能类
+
+- **隐藏域 (`hidden`)**：**后端神器**。
+    
+    - 页面上看不见，但提交表单时会一起发给后端。
+    - **场景**：修改用户信息时，需要把用户的 `id` 传回后台，但不想让用户看到或修改它。
+    
+```html
+  <input type="hidden" name="user_id" value="10086" />
+```
+- **文件上传 (`file`)**：
+ ```HTML
+ <input type="file" name="avatar" /> 
+ ```
+
+### 下拉菜单：`<select>` 和 `<option>`
+所在城市：
+```HTML
+<select name="city">
+    <option value="bj">北京</option>
+    <option value="sh">上海</option>
+    <option value="sz" selected>深圳</option>
+</select>
+```
+
+### 多行文本域：`<textarea>`
+```HTML
+<textarea name="intro" rows="5" cols="30">默认文字...</textarea>
+```
+
+### 提交按钮：`<button>`
+
+- **`type="submit"`**：**默认值**。点击后，浏览器会自动收集所有数据，按照 `<form>` 的 `action` 地址发出去。
+    
+- **`type="button"`**：普通按钮。点击没反应，通常用来绑定 JavaScript 事件（比如“点击获取验证码”）。
+    
+- **`type="reset"`**：重置按钮。点击把表单清空（现在很少用了）。
+    
+```HTML
+<button type="submit">立即注册</button>
+<button type="button">检查用户名是否重复</button>
+```

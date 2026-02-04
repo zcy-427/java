@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/api/employee/add" method="post">
+        <input type="text" name="username" placeholder="请输入姓名">
+        <br>
+        <input type="password" name="password" placeholder="请输入密码">
+        <br>
+        你的性别
+        <input type="radio" name="gender" value="male" checked>男
+        <input type="radio" name="gender" value="female">女
+        <br>
+        你擅长的技术
+        你擅长的技术：
+<label><input type="checkbox" name="skills" value="json">Json</label>
+<label><input type="checkbox" name="skills" value="html">html</label>
+<label><input type="checkbox" name="skills" value="sql">sql</label>
+        <br>
+        你的学历
+        <select name="education">
+            <option value="本科" selected>本科</option>
+            <option value="硕士">硕士</option>
+            <option value="博士">博士</option>
+        </select>
+        <br>
+        <textarea name="intro" rows="5" cols="30" placeholder="请介绍一下你自己"></textarea>
+        <br>
+        <input type="hidden" name="source" value="web" />
+        <br>
+        提交你的证件:<br><input type="file" name="avatar" />
+        <br>
+        <button type="submit">提交</button>
+    </form>
+</body>
+</html>

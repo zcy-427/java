@@ -194,7 +194,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 281.5
+    "width": 283.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -215,6 +215,7 @@
   },
   "active": "a005214190c49c43",
   "lastOpenFiles": [
+    "javaweb/css 和 html/html/代码/表单标签.html",
     "javaweb/css 和 html/html/代码/表格标签.html",
     "javaweb/css 和 html/html/代码/images/code.png",
     "javaweb/css 和 html/html/代码/images/image.png",
@@ -230,7 +231,6 @@
     "javaweb/css 和 html/html/代码/常见标签_列表.html",
     "javaweb/css 和 html/html/代码/常见标签_列表",
     "javaweb/css 和 html/html/代码/常见标签_标题段落换行.html",
-    "javaweb/css 和 html/html/代码/常见标签_标题段落换行.txt",
     "基础/switch（增强版）.md",
     "javaweb/未命名.md",
     "基础/File类.md",
