@@ -82,6 +82,9 @@ HTML
 	    - `<dt>` (Definition Term)：**标题/名字**（Key）。
 	    - `<dd>` (Definition Description)：**描述/值**（Value）。
 	- 子列表 `<ul>` 或 `<ol>` 必须放在父级的 `<li>` 标签**内部**，而不能直接放在 `<ul>` 下面。
+- 图片标签
+	标签：`<img src="..." />`
+	属性：src:图片的存放地址；title：鼠标悬停在图片上显示的文字；alt：图片加载失败显示的文字
 
 ## 6.超链接标签
 

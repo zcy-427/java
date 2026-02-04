@@ -20,6 +20,20 @@
               "icon": "lucide-file",
               "title": "html"
             }
+          },
+          {
+            "id": "9a322ebbe037355b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "基础/记录（record）.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "记录（record）"
+            }
           }
         ]
       }
@@ -171,8 +185,8 @@
             "state": {
               "type": "git-view",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "git-view"
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           }
         ],
@@ -180,7 +194,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 281.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -193,14 +207,22 @@
       "switcher:打开快速切换": false,
       "obsidian-git:Open Git source control": false,
       "templater-obsidian:Templater": false,
-      "vscode-editor:新建代码文件": false
+      "vscode-editor:新建代码文件": false,
+      "smart-connections:Smart Connections: Open connections view": false,
+      "smart-connections:Smart Lookup: Open lookup view": false,
+      "smart-connections:Smart Connections: Open random connection": false
     }
   },
   "active": "a005214190c49c43",
   "lastOpenFiles": [
+    "javaweb/css 和 html/html/代码/images/code.png",
+    "javaweb/css 和 html/html/代码/images/image.png",
+    "javaweb/css 和 html/html/代码/images",
+    "javaweb/css 和 html/html/代码/图片标签.html",
+    "基础/代码块.md",
+    "javaweb/css 和 html/html/html.md",
     "My code file.cpp",
     "todolist.md",
-    "javaweb/css 和 html/html/html.md",
     "My code file.java",
     "未命名.base",
     "javaweb/css 和 html/html/代码/超链接.html",
@@ -208,8 +230,6 @@
     "javaweb/css 和 html/html/代码/常见标签_列表",
     "javaweb/css 和 html/html/代码/常见标签_标题段落换行.html",
     "javaweb/css 和 html/html/代码/常见标签_标题段落换行.txt",
-    "javaweb/css 和 html/html/代码/新建 文本文档.txt",
-    "javaweb/css 和 html/html",
     "基础/switch（增强版）.md",
     "javaweb/未命名.md",
     "基础/File类.md",
@@ -232,7 +252,6 @@
     "基础/记录（record）.md",
     "基础/集合框架.md",
     "基础/泛型.md",
-    "基础/反射.md",
     "未命名.canvas",
     "assets/cs/file-20251207113502305.png",
     "assets/cs/file-20251207113502305 1.png",
