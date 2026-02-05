@@ -125,3 +125,25 @@ input[name="password"] {
     background-color: #f0f0f0;
 }
 ```
+
+##### 伪类选择器 (Pseudo-class Selector)
+
+```css
+/* 当鼠标悬停在按钮上时，变色 */
+button:hover {
+    background-color: orange;
+    cursor: pointer; /* 鼠标变成小手 */
+}
+```
+
+**权重排行榜：**
+
+1. **`!important`** (强制生效，尽量别用)
+    
+2. **行内样式** (`style="..."`)
+    
+3. **ID 选择器** (`#id`)
+    
+4. **类选择器** (`.class`)
+    
+5. **标签选择器** (`div`, `p`)
