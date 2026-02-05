@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javaweb/css 和 html/html/html.md",
+                "file": "javaweb/css 和 html/css/css.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "html"
+              "title": "css"
             }
           },
           {
@@ -170,13 +170,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/css 和 html/html/html.md",
+                "file": "javaweb/css 和 html/css/css.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "html 的大纲"
+              "title": "css 的大纲"
             }
           },
           {
@@ -213,24 +213,25 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "a005214190c49c43",
+  "active": "a8ab08880ad3d673",
   "lastOpenFiles": [
+    "javaweb/css 和 html/css/代码",
+    "javaweb/css 和 html/html/代码/images/code.png",
+    "javaweb/css 和 html/css/css.md",
+    "javaweb/css 和 html/css",
+    "javaweb/css 和 html/html/html.md",
+    "javaweb/css 和 html/html/代码/特殊符号标签.html",
     "javaweb/css 和 html/html/代码/布局标签.html",
     "javaweb/css 和 html/html/代码/表单标签.html",
     "javaweb/css 和 html/html/代码/表格标签.html",
-    "javaweb/css 和 html/html/代码/images/code.png",
     "javaweb/css 和 html/html/代码/images/image.png",
     "javaweb/css 和 html/html/代码/images",
     "javaweb/css 和 html/html/代码/图片标签.html",
     "基础/代码块.md",
-    "javaweb/css 和 html/html/html.md",
     "My code file.cpp",
     "todolist.md",
     "My code file.java",
     "未命名.base",
-    "javaweb/css 和 html/html/代码/超链接.html",
-    "javaweb/css 和 html/html/代码/常见标签_列表.html",
-    "javaweb/css 和 html/html/代码/常见标签_列表",
     "基础/switch（增强版）.md",
     "javaweb/未命名.md",
     "基础/File类.md",
@@ -252,7 +253,6 @@
     "基础/接口.md",
     "基础/记录（record）.md",
     "基础/集合框架.md",
-    "基础/泛型.md",
     "未命名.canvas",
     "assets/cs/file-20251207113502305.png",
     "assets/cs/file-20251207113502305 1.png",
