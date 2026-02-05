@@ -1,0 +1,15 @@
+*
+{
+    margin: auto;
+}
+
+input[type="text"], input[type="password"], textarea
+{
+    height: 30px;
+}
+
+button:hover
+{
+    background-color: white;
+    color:aquamarine
+}
