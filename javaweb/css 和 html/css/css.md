@@ -76,3 +76,52 @@ p {
 }
 ```
 ##### ID 选择器 (ID Selector)
+
+选中**唯一**的一个元素。
+语法：**`#`** + ID名
+```css
+/* 选中 id="submit-btn" 的那个元素 */
+#submit-btn {
+    background-color: blue;
+}
+```
+
+#### 2.层级关系 (结构化)
+
+##### 后代选择器 (Descendant Selector)
+
+语法：空格
+```css
+/* 选中 class="form-box" 里面 所有的 label */
+.form-box label {
+    font-weight: bold;
+}
+```
+
+##### 通配符选择器 (Universal Selector)
+
+选中页面上的**一切**。
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+```
+
+#### 3.属性与状态
+
+##### 属性选择器 (Attribute Selector)
+
+根据元素的属性值来找。 **语法**：`[属性名="属性值"]`
+```css
+/* 选中所有 type="text" 的输入框 */
+input[type="text"] {
+    width: 200px;
+}
+
+/* 选中 name="password" 的那个框 (精准!) */
+input[name="password"] {
+    background-color: #f0f0f0;
+}
+```
