@@ -14,3 +14,20 @@ button:hover
     color:aquamarine;
     cursor: pointer;
 }
+
+.avatar-box
+{
+    position: relative;
+    display: inline-block;
+}
+.hot-tag
+{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    padding: 2px 5px;
+    font-size: 12px;
+    border-radius: 3px;
+}

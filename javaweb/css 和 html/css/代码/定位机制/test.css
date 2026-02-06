@@ -1,0 +1,15 @@
+.father {
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+    position: relative; /* 爹只是为了给儿子当坐标系，自己不动 */
+}
+
+.son {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    position: absolute; /* 儿子彻底飞起来 */
+    top: 0;
+    right: 0; /* 定位在父亲的右上角 */
+}
