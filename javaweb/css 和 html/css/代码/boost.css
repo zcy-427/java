@@ -11,5 +11,6 @@ input[type="text"], input[type="password"], textarea
 button:hover
 {
     background-color: white;
-    color:aquamarine
+    color:aquamarine;
+    cursor: pointer;
 }
