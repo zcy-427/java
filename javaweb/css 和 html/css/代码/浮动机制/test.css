@@ -1,0 +1,16 @@
+.sidebar {
+    width: 200px;
+    height: 300px;
+    background-color: pink;
+    float: left; /* 关键：让它飘到左边 */
+}
+
+.main {
+    width: 500px;
+    height: 300px;
+    background-color: lightblue;
+    float: left; /* 关键：让它也飘起来，紧挨着 sidebar */
+}
+.parent {
+    overflow: hidden; /* 或者是 auto */
+}

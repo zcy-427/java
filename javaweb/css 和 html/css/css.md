@@ -150,3 +150,57 @@ button:hover {
 
 ## css的浮动机制
 
+`float` 属性最初被设计出来，**并不是为了布局**（把菜单放左边，内容放右边），而是为了实现 **“文字环绕图片”** 的效果。
+
+就像报纸上，插一张图在左边，文字会自动绕着图片走。
+
+- **`float: left;`**：元素靠左，文字环绕在右侧。
+    
+- **`float: right;`**：元素靠右，文字环绕在左侧。
+    
+- **`float: none;`**：默认值，不浮动。
+
+想象一下，你的网页是一个**排队窗口**（文档流），所有的 `div` 都在老老实实排队。
+
+当你给一个 `div` 加上 `float: left` 时：
+
+1. **它“飘”起来了**：它脱离了原本的排队队伍，浮在了空中（虽然看起来还是贴在页面上）。
+    
+2. **后面的元素补位**：因为第一个 `div` 飘走了，它原来的位置就空了，后面的元素会**无视它**，直接挤占它的位置。
+    
+3. **文字依然避让**：虽然后面的盒子会无视浮动元素，但盒子里的**文字**还能感知到它，会围着它转。
+
+```html
+<div class="parent">
+    <div class="sidebar">我是侧边栏</div>
+    <div class="main">我是主内容</div>
+</div>
+```
+
+```css
+.sidebar {
+    width: 200px;
+    height: 300px;
+    background-color: pink;
+    float: left; /* 关键：让它飘到左边 */
+}
+
+.main {
+    width: 500px;
+    height: 300px;
+    background-color: lightblue;
+    float: left; /* 关键：让它也飘起来，紧挨着 sidebar */
+}
+```
+
+***浮动的副作用***：高度塌陷 (Height Collapse)
+
+如果不给父容器（`.parent`）设置高度，而是希望里面的子元素（`.sidebar`, `.main`）自动把父亲撑开。
+
+**清除该副作用的方法**
+简单方法(对于非前端来说)
+```css
+.parent {
+    overflow: hidden; /* 或者是 auto */
+}
+```
