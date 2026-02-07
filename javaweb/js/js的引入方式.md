@@ -58,3 +58,9 @@ function checkLogin() {
     <script src="main.js" defer></script>
 </head>
 ```
+
+
+## 注意事项
+1.一个html中可以有多个script标签
+2.一对script标签不能在引入外部js文件的同时定义内部脚本
+3.script标签如果用于引入外部js文件，中间最好不要有任何字符包括空格与换行
