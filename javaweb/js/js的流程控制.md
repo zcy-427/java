@@ -55,3 +55,20 @@ for (let skill of skills) {
 }
 ```
 
+## 5.异常处理：`try...catch`
+
+和 Java 一样，但更简洁。
+
+```js
+try {
+    // 尝试执行可能报错的代码
+    let a = undefined;
+    console.log(a.name); // 这会报错
+} catch (e) {
+    // 捕获错误
+    // 注意：这里的 e 不需要声明类型 (Exception e)，它就是一个对象
+    console.log("出错了：" + e.message);
+} finally {
+    console.log("不管错没错，我都会执行");
+}
+```
