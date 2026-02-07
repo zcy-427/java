@@ -73,4 +73,33 @@ console.log(user.name);
 ```
 2. **`function` (函数)**
     
-    - 在 JS 中，函数也是一种数据类型！你可以把函数赋值给一个变量，或者作为参数传给另一个函数（这是 Java Lambda 的前身）。
+     在 JS 中，函数也是一种数据类型！你可以把函数赋值给一个变量，或者作为参数传给另一个函数（这是 Java Lambda 的前身）。
+
+### `typeof` 操作符
+
+```js
+let x = 100;
+console.log(typeof x); // 输出 "number"
+
+x = "Hello";
+console.log(typeof x); // 输出 "string"
+
+x = true;
+console.log(typeof x); // 输出 "boolean"
+
+// ⚠️ 著名的 JS Bug (面试必考)
+console.log(typeof null); // 输出 "object" (这是 JS 诞生时的遗留 Bug，改不了了)
+console.log(typeof undefined); // 输出 "undefined"
+```
+
+## 注意事项：
+
+**别用 `==`，永远用 `===`**
+
+- **`==` (模糊等于)**：浏览器会尝试帮你转换类型再比较。
+    
+    - `1 == "1"` 竟然是 `true`
+    
+- **`===` (严格等于)**：必须类型相同且值相同。
+    
+    - `1 === "1"` 是 `false`。**请把 `===` 焊死在你的键盘上。**
