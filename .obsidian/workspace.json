@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javaweb/js/js的引入方式.md",
+                "file": "javaweb/js/js的数据与变量类型.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "js的引入方式"
+              "title": "js的数据与变量类型"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/js/js的引入方式.md",
+                "file": "javaweb/js/js的数据与变量类型.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "js的引入方式 的大纲"
+              "title": "js的数据与变量类型 的大纲"
             }
           },
           {
@@ -199,13 +199,14 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "a8ab08880ad3d673",
+  "active": "a005214190c49c43",
   "lastOpenFiles": [
+    "javaweb/js/js的引入方式.md",
+    "javaweb/js/js的数据与变量类型.md",
     "javaweb/js/代码/js的引入/test.js",
     "javaweb/js/代码/js的引入/test.html",
     "javaweb/js/代码/js的引入",
     "javaweb/css 和 html/css/css.md",
-    "javaweb/js/js的引入方式.md",
     "javaweb/js/代码",
     "javaweb/js",
     "基础/记录（record）.md",
@@ -215,7 +216,6 @@
     "javaweb/css 和 html/css/代码/定位机制",
     "javaweb/css 和 html/css/代码/浮动机制/test.html",
     "javaweb/css 和 html/css/代码/浮动机制/test.css",
-    "javaweb/css 和 html/css/代码/浮动机制",
     "javaweb/css 和 html/html/代码/images/code.png",
     "javaweb/css 和 html/html/html.md",
     "基础/代码块.md",
