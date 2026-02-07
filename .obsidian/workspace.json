@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javaweb/css 和 html/css/css.md",
+                "file": "javaweb/js/js的引入方式.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "css"
+              "title": "js的引入方式"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/css 和 html/css/css.md",
+                "file": "javaweb/js/js的引入方式.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "css 的大纲"
+              "title": "js的引入方式 的大纲"
             }
           },
           {
@@ -199,12 +199,13 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "a8ab08880ad3d673",
+  "active": "a005214190c49c43",
   "lastOpenFiles": [
+    "javaweb/css 和 html/css/css.md",
+    "javaweb/js/js的引入方式.md",
     "javaweb/js/代码",
     "javaweb/js",
     "基础/记录（record）.md",
-    "javaweb/css 和 html/css/css.md",
     "javaweb/css 和 html/html/代码/images/image.png",
     "javaweb/css 和 html/css/代码/定位机制/test.css",
     "javaweb/css 和 html/css/代码/定位机制/test.html",
@@ -214,7 +215,6 @@
     "javaweb/css 和 html/css/代码/浮动机制",
     "javaweb/css 和 html/css/代码/boost.css",
     "javaweb/css 和 html/css/代码/外部样式test/test.html",
-    "javaweb/css 和 html/css/代码/外部样式test/test.css",
     "javaweb/css 和 html/html/代码/images/code.png",
     "javaweb/css 和 html/html/html.md",
     "基础/代码块.md",
