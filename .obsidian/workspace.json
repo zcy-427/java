@@ -199,8 +199,11 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "a005214190c49c43",
+  "active": "a8ab08880ad3d673",
   "lastOpenFiles": [
+    "javaweb/js/代码/js的引入/test.js",
+    "javaweb/js/代码/js的引入/test.html",
+    "javaweb/js/代码/js的引入",
     "javaweb/css 和 html/css/css.md",
     "javaweb/js/js的引入方式.md",
     "javaweb/js/代码",
@@ -213,8 +216,6 @@
     "javaweb/css 和 html/css/代码/浮动机制/test.html",
     "javaweb/css 和 html/css/代码/浮动机制/test.css",
     "javaweb/css 和 html/css/代码/浮动机制",
-    "javaweb/css 和 html/css/代码/boost.css",
-    "javaweb/css 和 html/css/代码/外部样式test/test.html",
     "javaweb/css 和 html/html/代码/images/code.png",
     "javaweb/css 和 html/html/html.md",
     "基础/代码块.md",
@@ -238,7 +239,6 @@
     "基础/密封类.md",
     "基础/枚举类.md",
     "基础/接口.md",
-    "基础/集合框架.md",
     "未命名.canvas",
     "assets/cs/file-20251207113502305.png",
     "assets/cs/file-20251207113502305 1.png",
