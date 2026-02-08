@@ -199,8 +199,12 @@
       "smart-connections:Smart Connections: Open random connection": false
     }
   },
-  "active": "a8ab08880ad3d673",
+  "active": "a005214190c49c43",
   "lastOpenFiles": [
+    "javaweb/js/代码/表单事件/test.html",
+    "javaweb/js/代码/表单事件/test.htlm",
+    "javaweb/js/代码/表单事件/test.js",
+    "javaweb/js/代码/表单事件",
     "javaweb/js/代码/事件绑定/test.html",
     "javaweb/js/代码/事件绑定/test.htm",
     "javaweb/js/代码/事件绑定/test.js",
@@ -218,12 +222,8 @@
     "javaweb/js/js的引入方式.md",
     "javaweb/js/代码/js的引入/test.js",
     "javaweb/js/代码/js的引入/test.html",
-    "javaweb/js/代码/js的引入",
-    "javaweb/js/代码",
-    "javaweb/js",
     "基础/记录（record）.md",
     "javaweb/css 和 html/html/代码/images/image.png",
-    "javaweb/css 和 html/css/代码/定位机制/test.css",
     "javaweb/css 和 html/html/代码/images/code.png",
     "基础/代码块.md",
     "todolist.md",

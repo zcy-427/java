@@ -99,3 +99,72 @@ e.stopPropagation(); // 停止传播
     });
 </script>
 ```
+
+## 表单的常见事件
+
+#### `submit` (提交事件)
+
+它发生在用户点击 `<button type="submit">` 或在输入框按回车时。
+
+- **绑定对象**：必须绑定在 **`<form>` 标签**上（千万别绑在按钮上！）。
+    
+- **核心作用**：**拦截原生提交，改为 AJAX 提交**。
+
+
+#### `input` (实时输入)
+
+只要 `value` 发生变化（每敲一个键盘字母，每粘贴一次内容），它**立刻**触发。
+
+用于
+- **搜索框联想**：你输一个 "J"，它马上弹出来 "Java", "JavaScript"。
+    
+- **字数统计**：微博的“还可以输入 10 个字”。
+    
+- **手机号格式化**：每输 3 位自动加个空格。
+```js
+let searchInput = document.getElementById("search");
+
+searchInput.addEventListener("input", function(e) {
+    // e.target.value 是当前输入框里的实时内容
+    console.log("正在搜索: " + e.target.value);
+});
+```
+
+#### `change` (更改确认)
+它也监听内容变化，但它比 `input` “懒”。
+
+- **对于文本框 (`<input type="text">`)**：用户输完内容，**并且鼠标点到别的地方（失去焦点）**，确认不改了，才会触发。
+    
+- **对于下拉框/单选框 (`<select>`, `<input type="checkbox">`)**：只要选项一变，**立刻触发**。
+    
+- **场景**：
+    
+    - **省市区联动**：当你选定“浙江省”时（触发 change），去后台拉取杭州、宁波的列表。
+        
+    - **上传文件**：`<input type="file">` 选好文件后，触发 change 开始上传。
+
+```js
+let changeSelect = document.getElementById("change");
+
+changeSelect.addEventListener("change", function(e) {
+
+    e.preventDefault();
+
+    console.log("选项改变了:", e.target.value);
+
+});
+```
+
+```html
+  <select name="选项" id="change">
+
+        <option value="1" selected>选项1</option>
+
+        <option value="2">选项2</option>
+
+        <option value="3">选项3</option>
+
+    </select>
+```
+
+#### 聚焦与失焦：`focus` & `blur`
