@@ -1,0 +1,1 @@
+类似于java当中的String Array等常用对象的使用，不多说
