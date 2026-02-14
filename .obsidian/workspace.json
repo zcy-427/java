@@ -192,11 +192,7 @@
       "templates:插入模板": false,
       "switcher:打开快速切换": false,
       "obsidian-git:Open Git source control": false,
-      "templater-obsidian:Templater": false,
-      "vscode-editor:新建代码文件": false,
-      "smart-connections:Smart Connections: Open connections view": false,
-      "smart-connections:Smart Lookup: Open lookup view": false,
-      "smart-connections:Smart Connections: Open random connection": false
+      "templater-obsidian:Templater": false
     }
   },
   "active": "a005214190c49c43",
