@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javaweb/js/xml.md",
+                "file": "javaweb/Tomcat/webapp的标准结构.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "xml"
+              "title": "webapp的标准结构"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/js/xml.md",
+                "file": "javaweb/Tomcat/webapp的标准结构.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "xml 的大纲"
+              "title": "webapp的标准结构 的大纲"
             }
           },
           {
@@ -197,8 +197,10 @@
   },
   "active": "2e3ca37f03f5eedf",
   "lastOpenFiles": [
-    "基础/包装类.md",
     "javaweb/js/xml.md",
+    "javaweb/Tomcat/webapp的标准结构.md",
+    "javaweb/Tomcat",
+    "基础/包装类.md",
     "基础/反射.md",
     "javaweb/js/json格式.md",
     "javaweb/js/正则表达式.md",
@@ -214,7 +216,6 @@
     "javaweb/js/代码/表单事件/test.html",
     "javaweb/js/代码/表单事件/test.htlm",
     "javaweb/js/代码/表单事件/test.js",
-    "javaweb/js/代码/表单事件",
     "javaweb/js/js的常用对象.md",
     "javaweb/js/js的流程控制.md",
     "javaweb/css 和 html/css/css.md",
@@ -234,7 +235,6 @@
     "基础/Files类.md",
     "基础/IO流.md",
     "基础/lambda.md",
-    "基础/object_class.md",
     "未命名.canvas",
     "assets/cs/file-20251207113502305.png",
     "assets/cs/file-20251207113502305 1.png",
