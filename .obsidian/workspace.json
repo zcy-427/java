@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "基础/反射.md",
+                "file": "javaweb/js/xml.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "反射"
+              "title": "xml"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "基础/反射.md",
+                "file": "javaweb/js/xml.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "反射 的大纲"
+              "title": "xml 的大纲"
             }
           },
           {
@@ -197,6 +197,9 @@
   },
   "active": "2e3ca37f03f5eedf",
   "lastOpenFiles": [
+    "基础/包装类.md",
+    "javaweb/js/xml.md",
+    "基础/反射.md",
     "javaweb/js/json格式.md",
     "javaweb/js/正则表达式.md",
     "javaweb/js/DOM编程.md",
@@ -232,9 +235,6 @@
     "基础/IO流.md",
     "基础/lambda.md",
     "基础/object_class.md",
-    "基础/Optional.md",
-    "基础/Selector：多路复用器（高并发核心）.md",
-    "基础/static.md",
     "未命名.canvas",
     "assets/cs/file-20251207113502305.png",
     "assets/cs/file-20251207113502305 1.png",
