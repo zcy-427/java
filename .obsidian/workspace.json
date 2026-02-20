@@ -11,10 +11,14 @@
             "id": "2e3ca37f03f5eedf",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "javaweb/js/BOM编程.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "BOM编程"
             }
           }
         ]
@@ -152,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "javaweb/js/BOM编程.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "BOM编程 的大纲"
             }
           },
           {
@@ -190,8 +195,12 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "a8ab08880ad3d673",
+  "active": "2e3ca37f03f5eedf",
   "lastOpenFiles": [
+    "javaweb/js/代码/BOM/test.html",
+    "javaweb/js/代码/BOM/test.js",
+    "javaweb/js/代码/BOM",
+    "javaweb/js/BOM编程.md",
     "未命名 1.base",
     "未命名.base",
     "javaweb/js/js的事件.md",
@@ -201,11 +210,8 @@
     "javaweb/js/代码/表单事件",
     "javaweb/js/代码/事件绑定/test.html",
     "javaweb/js/代码/事件绑定/test.htm",
-    "javaweb/js/代码/事件绑定/test.js",
-    "javaweb/js/代码/事件绑定",
     "javaweb/js/js的常用对象.md",
     "javaweb/js/json格式.md",
-    "javaweb/js/anwser.json",
     "javaweb/js/js的流程控制.md",
     "javaweb/css 和 html/css/css.md",
     "javaweb/css 和 html/html/html.md",
@@ -229,7 +235,6 @@
     "基础/Selector：多路复用器（高并发核心）.md",
     "基础/static.md",
     "基础/Stream API.md",
-    "基础/String.md",
     "未命名.canvas",
     "assets/cs/file-20251207113502305.png",
     "assets/cs/file-20251207113502305 1.png",
