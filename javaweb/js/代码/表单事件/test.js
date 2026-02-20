@@ -16,3 +16,11 @@ changeSelect.addEventListener("change", function(e) {
     e.preventDefault();
     console.log("选项改变了:", e.target.value);
 });
+
+let userDocs = document.getElementById("username");
+// 失去焦点时 (Blur)
+userDocs.addEventListener("blur", function() {
+    if (this.value.length < 3) {
+        alert("用户名太短了！"); // 简单的校验
+    }
+});
