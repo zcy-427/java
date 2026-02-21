@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javaweb/Tomcat/webapp的标准结构.md",
+                "file": "javaweb/Tomcat/如何通过IDEA开发JavaWeb工程并部署.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "webapp的标准结构"
+              "title": "如何通过IDEA开发JavaWeb工程并部署"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/Tomcat/webapp的标准结构.md",
+                "file": "javaweb/Tomcat/如何通过IDEA开发JavaWeb工程并部署.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "webapp的标准结构 的大纲"
+              "title": "如何通过IDEA开发JavaWeb工程并部署 的大纲"
             }
           },
           {
@@ -197,8 +197,9 @@
   },
   "active": "2e3ca37f03f5eedf",
   "lastOpenFiles": [
-    "javaweb/js/xml.md",
     "javaweb/Tomcat/webapp的标准结构.md",
+    "javaweb/Tomcat/如何通过IDEA开发JavaWeb工程并部署.md",
+    "javaweb/js/xml.md",
     "javaweb/Tomcat",
     "基础/包装类.md",
     "基础/反射.md",
@@ -234,7 +235,6 @@
     "基础/File类.md",
     "基础/Files类.md",
     "基础/IO流.md",
-    "基础/lambda.md",
     "未命名.canvas",
     "assets/cs/file-20251207113502305.png",
     "assets/cs/file-20251207113502305 1.png",
