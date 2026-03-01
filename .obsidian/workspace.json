@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "基础/网络编程.md",
+                "file": "javaweb/http协议.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "网络编程"
+              "title": "http协议"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "http",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,8 +74,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -157,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "基础/网络编程.md",
+                "file": "javaweb/http协议.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "网络编程 的大纲"
+              "title": "http协议 的大纲"
             }
           },
           {
@@ -198,6 +197,8 @@
   },
   "active": "2e3ca37f03f5eedf",
   "lastOpenFiles": [
+    "javaweb/css 和 html/html/html.md",
+    "基础/网络编程.md",
     "javaweb/http协议.md",
     "javaweb/Tomcat/如何通过IDEA开发JavaWeb工程并部署.md",
     "javaweb/Tomcat/assets/如何通过IDEA开发JavaWeb工程并部署/file-20260221212948457.png",
@@ -226,7 +227,6 @@
     "javaweb/js/js的常用对象.md",
     "javaweb/js/js的流程控制.md",
     "javaweb/css 和 html/css/css.md",
-    "javaweb/css 和 html/html/html.md",
     "javaweb/js/js对象的创建.md",
     "javaweb/js/函数.md",
     "javaweb/js/js的数据与变量类型.md",
