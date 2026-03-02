@@ -20,21 +20,8 @@
               "icon": "lucide-file",
               "title": "如何通过IDEA开发JavaWeb工程并部署"
             }
-          },
-          {
-            "id": "9889601fc9facf1e",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.12.4"
-              },
-              "icon": "lucide-book-up",
-              "title": "版本说明 1.12.4"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -169,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "javaweb/Tomcat/如何通过IDEA开发JavaWeb工程并部署.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "如何通过IDEA开发JavaWeb工程并部署 的大纲"
             }
           },
           {
@@ -207,7 +195,7 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "9889601fc9facf1e",
+  "active": "2e3ca37f03f5eedf",
   "lastOpenFiles": [
     "javaweb/http协议.md",
     "javaweb/css 和 html/html/html.md",
