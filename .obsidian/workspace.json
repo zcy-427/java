@@ -13,15 +13,28 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javaweb/http协议.md",
+                "file": "javaweb/Tomcat/如何通过IDEA开发JavaWeb工程并部署.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "http协议"
+              "title": "如何通过IDEA开发JavaWeb工程并部署"
+            }
+          },
+          {
+            "id": "9889601fc9facf1e",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.12.4"
+              },
+              "icon": "lucide-book-up",
+              "title": "版本说明 1.12.4"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +169,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/http协议.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "http协议 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -195,11 +207,11 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "2e3ca37f03f5eedf",
+  "active": "9889601fc9facf1e",
   "lastOpenFiles": [
+    "javaweb/http协议.md",
     "javaweb/css 和 html/html/html.md",
     "基础/网络编程.md",
-    "javaweb/http协议.md",
     "javaweb/Tomcat/如何通过IDEA开发JavaWeb工程并部署.md",
     "javaweb/Tomcat/assets/如何通过IDEA开发JavaWeb工程并部署/file-20260221212948457.png",
     "javaweb/Tomcat/assets/如何通过IDEA开发JavaWeb工程并部署/file-20260221211723256.png",
