@@ -1,0 +1,34 @@
+#### 交互的方式
+- 请求：永远都是客户端向服务端发送
+- 响应：永远都是服务端相客服端返回
+
+#### 数据的格式
+- 请求时发送的数据，称之为请求报文
+- 响应时返回的数据，称之为响应报文
+
+### 报文的格式
+
+#### A. 请求报文 (Request Message)
+
+请求报文由四个部分组成：
+
+1. **请求行 (Request Line)**：包含 请求方法、请求URL、HTTP版本。（如 GET /index.html HTTP/1.1）
+    
+2. **请求头 (Headers)**：以键值对的形式传递客户端的附加信息。（如 Host: www.example.com, User-Agent: Mozilla/5.0）
+    
+3. **空行 (Blank Line)**：一个只包含回车换行符（CRLF）的空行，用于分隔头部和主体。
+    
+4. **请求体 (Body)**：实际要发送给服务器的数据（GET请求通常没有请求体，POST请求一般有，如表单数据或JSON）。
+    
+
+#### B. 响应报文 (Response Message)
+
+响应报文也由四个部分组成：
+
+1. **状态行 (Status Line)**：包含 HTTP版本、状态码、状态描述。（如 HTTP/1.1 200 OK）
+    
+2. **响应头 (Headers)**：服务端传递的附加信息。（如 Content-Type: text/html, Server: nginx）
+    
+3. **空行 (Blank Line)**：与请求报文相同，用于分隔。
+    
+4. **响应体 (Body)**：服务器返回给客户端的实际内容（如 HTML 文档或 JSON 数据）
