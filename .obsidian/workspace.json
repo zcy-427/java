@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javaweb/Tomcat/servlet/servlet是什么及其工作原理.md",
+                "file": "javaweb/css 和 html/html/html.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "servlet是什么及其工作原理"
+              "title": "html"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/Tomcat/servlet/servlet是什么及其工作原理.md",
+                "file": "javaweb/css 和 html/html/html.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "servlet是什么及其工作原理 的大纲"
+              "title": "html 的大纲"
             }
           },
           {
@@ -197,8 +197,8 @@
   },
   "active": "2e3ca37f03f5eedf",
   "lastOpenFiles": [
-    "javaweb/尚硅谷笔记/05_第五章 Servlet.md",
     "javaweb/Tomcat/servlet/servlet是什么及其工作原理.md",
+    "javaweb/尚硅谷笔记/05_第五章 Servlet.md",
     "javaweb/Tomcat/servlet",
     "javaweb/尚硅谷笔记/04_第四章 XML_Tomcat_HTTP.md",
     "todolist.md",
