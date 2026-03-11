@@ -15,11 +15,32 @@
 1. **请求行 (Request Line)**：包含 请求方法、请求URL、HTTP版本。（如 GET /index.html HTTP/1.1）
     
 2. **请求头 (Headers)**：以键值对的形式传递客户端的附加信息。（如 Host: www.example.com, User-Agent: Mozilla/5.0）
+	
     
 3. **空行 (Blank Line)**：一个只包含回车换行符（CRLF）的空行，用于分隔头部和主体。
     
 4. **请求体 (Body)**：实际要发送给服务器的数据（GET请求通常没有请求体，POST请求一般有，如表单数据或JSON）。
     
+
+
+> [!NOTE] 常见的请求头
+> -主机虚拟地址
+Host:localhost:8080
+-长连接
+Connection:keep-alive
+-请求协议的自动升级[http的请求，服务器却是nttps的，浏览器自动会将请求协议升级为nttps的]
+Upgrade-Insecure-Requests:1
+-用户系统信息
+User-Agent:Mozilla/5.0 (Windows NT 6.1;WOW64)AppleWebKit/537.36 (KHTML,like Gecko)Chrome/68.0.3440.75 Safari/537.36
+-浏览器支持的文件类型
+Accept text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+-当前页面的上一个页面的路径[当前页面通过哪个页面跳转过来的]：
+可以通过此路径跳转回上一个页面，广告计费，防止盗链
+Referer:http://localhost:8080/05_web_tomcat/login.html
+-浏览器支持的压缩格式
+Accept-Encoding:gzip,deflate,br
+-浏览器支持的语言
+Accept-Language:zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7
 
 #### B. 响应报文 (Response Message)
 
