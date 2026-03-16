@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "javaweb/css 和 html/css/css.md",
+                "file": "javaweb/尚硅谷笔记/05_第五章 Servlet.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "css"
+              "title": "05_第五章 Servlet"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "javaweb/css 和 html/css/css.md",
+                "file": "javaweb/尚硅谷笔记/05_第五章 Servlet.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "css 的大纲"
+              "title": "05_第五章 Servlet 的大纲"
             }
           },
           {
@@ -197,8 +197,14 @@
   },
   "active": "2e3ca37f03f5eedf",
   "lastOpenFiles": [
-    "javaweb/css 和 html/html/html.md",
+    "javaweb/尚硅谷笔记/06_第六章 会话_过滤器_监听器.md",
+    "javaweb/尚硅谷笔记/07_第七章 前端工程化.md",
+    "javaweb/尚硅谷笔记/images/1557672342250_1H8nt17MNz.png",
+    "javaweb/尚硅谷笔记/images/1557672415271_EgyN-GdbWY.png",
+    "javaweb/尚硅谷笔记/05_第五章 Servlet.md",
+    "javaweb/http协议.md",
     "javaweb/css 和 html/css/css.md",
+    "javaweb/css 和 html/html/html.md",
     "javaweb/js/函数.md",
     "javaweb/js/xml.md",
     "javaweb/js/json格式.md",
@@ -211,12 +217,9 @@
     "javaweb/js/DOM编程.md",
     "javaweb/js/正则表达式.md",
     "javaweb/Tomcat/servlet/servlet是什么及其工作原理.md",
-    "javaweb/尚硅谷笔记/05_第五章 Servlet.md",
     "javaweb/Tomcat/servlet",
     "javaweb/尚硅谷笔记/04_第四章 XML_Tomcat_HTTP.md",
     "todolist.md",
-    "javaweb/http协议.md",
-    "javaweb/尚硅谷笔记/06_第六章 会话_过滤器_监听器.md",
     "javaweb/尚硅谷笔记/08_第八章 微头条项目开发.md",
     "javaweb/尚硅谷笔记/images/v-on.gif",
     "javaweb/尚硅谷笔记/images/switchex.gif",
@@ -226,9 +229,6 @@
     "javaweb/尚硅谷笔记/images/js.gif",
     "javaweb/尚硅谷笔记/images/image_uTNSasJcFd.png",
     "javaweb/尚硅谷笔记/images/jingxi.gif",
-    "javaweb/尚硅谷笔记/images/img008_sCTelqarx-.png",
-    "javaweb/尚硅谷笔记/images/image_XMWA0EjBUI.png",
-    "javaweb/尚硅谷笔记/07_第七章 前端工程化.md",
     "javaweb/尚硅谷笔记/images",
     "javaweb/尚硅谷笔记/02_第二章 HTML&CSS.md",
     "javaweb/尚硅谷笔记/03_第三章 JavaScript.md",
@@ -236,7 +236,6 @@
     "javaweb/尚硅谷笔记",
     "javaweb/笔记/images",
     "javaweb/笔记/07_第七章 前端工程化.md",
-    "javaweb/笔记/08_第八章 微头条项目开发.md",
     "javaweb/笔记",
     "javaweb/Tomcat/assets/如何通过IDEA开发JavaWeb工程并部署",
     "javaweb/Tomcat/assets",
